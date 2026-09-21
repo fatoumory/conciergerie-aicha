@@ -1,0 +1,17 @@
+application {
+  config {
+    baseName conciergerie
+    applicationType monolith
+    packageName sn.orange.conciergerie
+    authenticationType jwt
+    buildTool maven
+    databaseType sql
+    devDatabaseType postgresql
+    prodDatabaseType postgresql
+    clientFramework angular
+    enableTranslation true
+    nativeLanguage fr
+    languages [fr, en]
+  }
+}
+

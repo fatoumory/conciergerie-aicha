@@ -1,0 +1,20 @@
+{
+  "generator-jhipster": {
+    "applicationType": "monolith",
+    "authenticationType": "jwt",
+    "baseName": "conciergerie",
+    "buildTool": "maven",
+    "clientFramework": "angular",
+    "creationTimestamp": 1701862474321,
+    "databaseType": "sql",
+    "devDatabaseType": "postgresql",
+    "enableTranslation": true,
+    "entities": [],
+    "jhipsterVersion": "9.4.0",
+    "jwtSecretKey": "YzM2OGE1MTQwNjQ2NWRlNGMwM2U4Yzg1MmY5ZDI1ZTc3YWNlN2Y2NDczNTdhYTczMzIwZWJiNGI0NzBiM2ZjZjg0Y2U5NjY0NjAwM2IzZmZmZjhiMTBmMDgyNGJjY2U0MzliN2Q3YjM3OTkwMmRjMGMxYmVlMTQ5YzdlMTAxYTk=",
+    "languages": ["fr", "en"],
+    "nativeLanguage": "fr",
+    "packageName": "sn.orange.conciergerie",
+    "prodDatabaseType": "postgresql"
+  }
+}
