@@ -1,0 +1,108 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-quota-detail-heading"
+        data-cy="QuotaDetailCreateUpdateHeading"
+        jhiTranslate="conciergerieApp.quotaDetail.home.createOrEditLabel"
+      >
+        Créer ou éditer un Quota Detail
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="conciergerieApp.quotaDetail.id">Id</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let limiteRef = editForm.get('limite')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_limite" jhiTranslate="conciergerieApp.quotaDetail.limite">Limite</label>
+          <input type="number" class="form-control" name="limite" id="field_limite" data-cy="limite" formControlName="limite" />
+          @if (limiteRef.invalid && (limiteRef.dirty || limiteRef.touched)) {
+            <div>
+              @if (limiteRef.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+              @if (limiteRef.errors?.min) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.min" [translateValues]="{ min: '0' }"
+                  >Ce champ doit être supérieur à 0.</small
+                >
+              }
+              <small class="form-text text-danger" [hidden]="!limiteRef.errors?.number" jhiTranslate="entity.validation.number"
+                >Ce champ doit être un nombre.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_quotaService" jhiTranslate="conciergerieApp.quotaDetail.quotaService">Quota Service</label>
+          <select
+            class="form-select"
+            id="field_quotaService"
+            data-cy="quotaService"
+            name="quotaService"
+            formControlName="quotaService"
+            [compareWith]="compareQuotaService"
+          >
+            @if (!editForm.get('quotaService')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (quotaServiceOption of quotaServicesSharedCollection(); track $index) {
+              <option [ngValue]="quotaServiceOption">{{ quotaServiceOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (
+          editForm.get(['quotaService'])!.invalid && (editForm.get(['quotaService'])!.dirty || editForm.get(['quotaService'])!.touched)
+        ) {
+          <div>
+            @if (editForm.get(['quotaService'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_zone" jhiTranslate="conciergerieApp.quotaDetail.zone">Zone</label>
+          <select class="form-select" id="field_zone" data-cy="zone" name="zone" formControlName="zone" [compareWith]="compareZone">
+            @if (!editForm.get('zone')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (zoneOption of zonesSharedCollection(); track $index) {
+              <option [ngValue]="zoneOption">{{ zoneOption.libelle }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['zone'])!.invalid && (editForm.get(['zone'])!.dirty || editForm.get(['zone'])!.touched)) {
+          <div>
+            @if (editForm.get(['zone'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

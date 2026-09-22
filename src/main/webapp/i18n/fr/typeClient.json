@@ -1,0 +1,25 @@
+{
+  "conciergerieApp": {
+    "typeClient": {
+      "home": {
+        "title": "TypeClients",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Type Client",
+        "createOrEditLabel": "Créer ou éditer un Type Client",
+        "notFound": "Aucun Type Client trouvé"
+      },
+      "created": "Un nouveau Type Client a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Type Client avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Type Client avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Type Client {{ id }} ?"
+      },
+      "detail": {
+        "title": "Type Client"
+      },
+      "id": "Id",
+      "code": "Code",
+      "libelle": "Libelle"
+    }
+  }
+}

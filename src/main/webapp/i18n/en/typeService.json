@@ -1,0 +1,25 @@
+{
+  "conciergerieApp": {
+    "typeService": {
+      "home": {
+        "title": "Type Services",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Type Service",
+        "createOrEditLabel": "Create or edit a Type Service",
+        "notFound": "No Type Services found"
+      },
+      "created": "A new Type Service is created with identifier {{ param }}",
+      "updated": "A Type Service is updated with identifier {{ param }}",
+      "deleted": "A Type Service is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Type Service {{ id }}?"
+      },
+      "detail": {
+        "title": "Type Service"
+      },
+      "id": "Id",
+      "code": "Code",
+      "libelle": "Libelle"
+    }
+  }
+}

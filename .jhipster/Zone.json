@@ -1,0 +1,28 @@
+{
+  "annotations": {
+    "changelogDate": "20260922090915"
+  },
+  "applications": ["*"],
+  "documentation": "Zone géographique (couverture et quotas).",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "code",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "libelle",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "Zone",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

@@ -1,0 +1,32 @@
+{
+  "annotations": {
+    "changelogDate": "20260922090918"
+  },
+  "applications": ["*"],
+  "documentation": "Stock ou capacité globale d'un service (Account dans le document).",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "solde",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "CompteStock",
+  "relationships": [
+    {
+      "otherEntityField": "libelle",
+      "otherEntityName": "serviceConciergerie",
+      "relationshipName": "service",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

@@ -1,0 +1,26 @@
+{
+  "conciergerieApp": {
+    "utilisationCodeQr": {
+      "home": {
+        "title": "Utilisation Code Qrs",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Utilisation Code Qr",
+        "createOrEditLabel": "Create or edit a Utilisation Code Qr",
+        "notFound": "No Utilisation Code Qrs found"
+      },
+      "created": "A new Utilisation Code Qr is created with identifier {{ param }}",
+      "updated": "A Utilisation Code Qr is updated with identifier {{ param }}",
+      "deleted": "A Utilisation Code Qr is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Utilisation Code Qr {{ id }}?"
+      },
+      "detail": {
+        "title": "Utilisation Code Qr"
+      },
+      "id": "Id",
+      "dateUtilisation": "Date Utilisation",
+      "codeQrService": "Code Qr Service",
+      "partenaire": "Partenaire"
+    }
+  }
+}

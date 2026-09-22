@@ -1,0 +1,27 @@
+{
+  "conciergerieApp": {
+    "couverturePartenaire": {
+      "home": {
+        "title": "CouverturePartenaires",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Couverture Partenaire",
+        "createOrEditLabel": "Créer ou éditer un Couverture Partenaire",
+        "notFound": "Aucun Couverture Partenaire trouvé"
+      },
+      "created": "Un nouveau Couverture Partenaire a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Couverture Partenaire avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Couverture Partenaire avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Couverture Partenaire {{ id }} ?"
+      },
+      "detail": {
+        "title": "Couverture Partenaire"
+      },
+      "id": "Id",
+      "dateDebut": "Date Debut",
+      "dateFin": "Date Fin",
+      "partenaire": "Partenaire",
+      "service": "Service"
+    }
+  }
+}

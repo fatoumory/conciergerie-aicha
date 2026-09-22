@@ -1,0 +1,78 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (eligibiliteService(); as eligibiliteServiceRef) {
+      <div>
+        <h2 data-cy="eligibiliteServiceDetailsHeading">
+          <span jhiTranslate="conciergerieApp.eligibiliteService.detail.title">Eligibilite Service</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="conciergerieApp.eligibiliteService.id">Id</span></dt>
+          <dd>
+            <span>{{ eligibiliteServiceRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.eligibiliteService.autorise">Autorise</span></dt>
+          <dd>
+            <span>{{ eligibiliteServiceRef.autorise }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.eligibiliteService.gratuit">Gratuit</span></dt>
+          <dd>
+            <span>{{ eligibiliteServiceRef.gratuit }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.eligibiliteService.dateDebut">Date Debut</span></dt>
+          <dd>
+            <span>{{ eligibiliteServiceRef.dateDebut | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.eligibiliteService.dateFin">Date Fin</span></dt>
+          <dd>
+            <span>{{ eligibiliteServiceRef.dateFin | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.eligibiliteService.service">Service</span></dt>
+          <dd>
+            @if (eligibiliteService()!.service) {
+              <div>
+                <a [routerLink]="['/service-conciergerie', eligibiliteService()!.service?.id, 'view']">{{
+                  eligibiliteServiceRef.service?.libelle
+                }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.eligibiliteService.segmentClient">Segment Client</span></dt>
+          <dd>
+            @if (eligibiliteService()!.segmentClient) {
+              <div>
+                <a [routerLink]="['/segment-client', eligibiliteService()!.segmentClient?.id, 'view']">{{
+                  eligibiliteServiceRef.segmentClient?.libelle
+                }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.eligibiliteService.typeClient">Type Client</span></dt>
+          <dd>
+            @if (eligibiliteService()!.typeClient) {
+              <div>
+                <a [routerLink]="['/type-client', eligibiliteService()!.typeClient?.id, 'view']">{{
+                  eligibiliteServiceRef.typeClient?.libelle
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="button" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/eligibilite-service', eligibiliteServiceRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

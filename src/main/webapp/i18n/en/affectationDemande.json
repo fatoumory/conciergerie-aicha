@@ -1,0 +1,26 @@
+{
+  "conciergerieApp": {
+    "affectationDemande": {
+      "home": {
+        "title": "Affectation Demandes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Affectation Demande",
+        "createOrEditLabel": "Create or edit a Affectation Demande",
+        "notFound": "No Affectation Demandes found"
+      },
+      "created": "A new Affectation Demande is created with identifier {{ param }}",
+      "updated": "A Affectation Demande is updated with identifier {{ param }}",
+      "deleted": "A Affectation Demande is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Affectation Demande {{ id }}?"
+      },
+      "detail": {
+        "title": "Affectation Demande"
+      },
+      "id": "Id",
+      "dateAffectation": "Date Affectation",
+      "demande": "Demande",
+      "partenaire": "Partenaire"
+    }
+  }
+}

@@ -1,0 +1,159 @@
+<div>
+  <h2 id="page-heading" data-cy="ConsommationQuotaHeading">
+    <span jhiTranslate="conciergerieApp.consommationQuota.home.title">ConsommationQuotas</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading()">
+        <fa-icon icon="sync" [animation]="isLoading() ? 'spin' : undefined" />
+        <span jhiTranslate="conciergerieApp.consommationQuota.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-consommation-quota"
+        [routerLink]="['/consommation-quota/new']"
+      >
+        <fa-icon icon="plus" />
+        <span jhiTranslate="conciergerieApp.consommationQuota.home.createLabel">Créer un nouveau Consommation Quota</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  <jhi-filter [filters]="filters" />
+
+  @if (consommationQuotas().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="conciergerieApp.consommationQuota.home.notFound">Aucun Consommation Quota trouvé</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.consommationQuota.id">Id</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="quantite">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.consommationQuota.quantite">Quantite</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="dateConsommation">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.consommationQuota.dateConsommation">Date Consommation</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="client.numero">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.consommationQuota.client">Client</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="quotaService.id">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.consommationQuota.quotaService">Quota Service</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="quotaDetail.id">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.consommationQuota.quotaDetail">Quota Detail</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (consommationQuota of consommationQuotas(); track trackId(consommationQuota)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/consommation-quota', consommationQuota.id, 'view']">{{ consommationQuota.id }}</a>
+              </td>
+              <td>{{ consommationQuota.quantite }}</td>
+              <td>{{ consommationQuota.dateConsommation | formatMediumDatetime }}</td>
+              <td>
+                @if (consommationQuota.client) {
+                  <div>
+                    <a [routerLink]="['/client', consommationQuota.client.id, 'view']">{{ consommationQuota.client.numero }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (consommationQuota.quotaService) {
+                  <div>
+                    <a [routerLink]="['/quota-service', consommationQuota.quotaService.id, 'view']">{{
+                      consommationQuota.quotaService.id
+                    }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (consommationQuota.quotaDetail) {
+                  <div>
+                    <a [routerLink]="['/quota-detail', consommationQuota.quotaDetail.id, 'view']">{{ consommationQuota.quotaDetail.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a
+                    [routerLink]="['/consommation-quota', consommationQuota.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a
+                    [routerLink]="['/consommation-quota', consommationQuota.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="button" (click)="delete(consommationQuota)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (consommationQuotas().length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page(), totalItems: totalItems(), itemsPerPage: itemsPerPage() }" />
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems()"
+          [page]="page()"
+          [pageSize]="itemsPerPage()"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        />
+      </div>
+    </div>
+  }
+</div>

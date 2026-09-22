@@ -1,0 +1,95 @@
+<div>
+  <h2 id="page-heading" data-cy="CompteStockHeading">
+    <span jhiTranslate="conciergerieApp.compteStock.home.title">CompteStocks</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading()">
+        <fa-icon icon="sync" [animation]="isLoading() ? 'spin' : undefined" />
+        <span jhiTranslate="conciergerieApp.compteStock.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-compte-stock"
+        [routerLink]="['/compte-stock/new']"
+      >
+        <fa-icon icon="plus" />
+        <span jhiTranslate="conciergerieApp.compteStock.home.createLabel">Créer un nouveau Compte Stock</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  @if (compteStocks().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="conciergerieApp.compteStock.home.notFound">Aucun Compte Stock trouvé</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.compteStock.id">Id</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="solde">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.compteStock.solde">Solde</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="service.libelle">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.compteStock.service">Service</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (compteStock of compteStocks(); track trackId(compteStock)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/compte-stock', compteStock.id, 'view']">{{ compteStock.id }}</a>
+              </td>
+              <td>{{ compteStock.solde }}</td>
+              <td>
+                @if (compteStock.service) {
+                  <div>
+                    <a [routerLink]="['/service-conciergerie', compteStock.service.id, 'view']">{{ compteStock.service.libelle }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/compte-stock', compteStock.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a [routerLink]="['/compte-stock', compteStock.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="button" (click)="delete(compteStock)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

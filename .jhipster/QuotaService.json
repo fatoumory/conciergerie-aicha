@@ -1,0 +1,53 @@
+{
+  "annotations": {
+    "changelogDate": "20260922090911"
+  },
+  "applications": ["*"],
+  "documentation": "Limite d'utilisation associée à une éligibilité.",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "limite",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "unite",
+      "fieldType": "UniteQuota",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "UNITE,ACCES,COURSE,KG"
+    },
+    {
+      "fieldName": "periode",
+      "fieldType": "PeriodeQuota",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "JOUR,SEMAINE,MOIS,TRIMESTRE,ANNEE"
+    },
+    {
+      "fieldName": "dateDebut",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dateFin",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "name": "QuotaService",
+  "relationships": [
+    {
+      "otherEntityName": "eligibiliteService",
+      "relationshipName": "eligibiliteService",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

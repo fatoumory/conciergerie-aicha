@@ -1,0 +1,134 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-evaluation-heading"
+        data-cy="EvaluationCreateUpdateHeading"
+        jhiTranslate="conciergerieApp.evaluation.home.createOrEditLabel"
+      >
+        Créer ou éditer un Evaluation
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="conciergerieApp.evaluation.id">Id</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let noteRef = editForm.get('note')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_note" jhiTranslate="conciergerieApp.evaluation.note">Note</label>
+          <input type="number" class="form-control" name="note" id="field_note" data-cy="note" formControlName="note" />
+          @if (noteRef.invalid && (noteRef.dirty || noteRef.touched)) {
+            <div>
+              @if (noteRef.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+              @if (noteRef.errors?.min) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.min" [translateValues]="{ min: '1' }"
+                  >Ce champ doit être supérieur à 1.</small
+                >
+              }
+              @if (noteRef.errors?.max) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.max" [translateValues]="{ max: '5' }"
+                  >Ce champ doit être inférieur à 5.</small
+                >
+              }
+              <small class="form-text text-danger" [hidden]="!noteRef.errors?.number" jhiTranslate="entity.validation.number"
+                >Ce champ doit être un nombre.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_commentaire" jhiTranslate="conciergerieApp.evaluation.commentaire">Commentaire</label>
+          <textarea
+            class="form-control"
+            name="commentaire"
+            id="field_commentaire"
+            data-cy="commentaire"
+            formControlName="commentaire"
+          ></textarea>
+        </div>
+
+        @let dateEvaluationRef = editForm.get('dateEvaluation')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_dateEvaluation" jhiTranslate="conciergerieApp.evaluation.dateEvaluation"
+            >Date Evaluation</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_dateEvaluation"
+              data-cy="dateEvaluation"
+              type="datetime-local"
+              class="form-control"
+              name="dateEvaluation"
+              formControlName="dateEvaluation"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          @if (dateEvaluationRef.invalid && (dateEvaluationRef.dirty || dateEvaluationRef.touched)) {
+            <div>
+              @if (dateEvaluationRef.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!dateEvaluationRef.errors?.datetimelocal"
+                jhiTranslate="entity.validation.datetimelocal"
+                >Ce champ doit être une date et une heure.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_demande" jhiTranslate="conciergerieApp.evaluation.demande">Demande</label>
+          <select
+            class="form-select"
+            id="field_demande"
+            data-cy="demande"
+            name="demande"
+            formControlName="demande"
+            [compareWith]="compareDemande"
+          >
+            @if (editForm.get(['demande'])!.value === null) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (demandeOption of demandesCollection(); track $index) {
+              <option [ngValue]="demandeOption">{{ demandeOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['demande'])!.invalid && (editForm.get(['demande'])!.dirty || editForm.get(['demande'])!.touched)) {
+          <div>
+            @if (editForm.get(['demande'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

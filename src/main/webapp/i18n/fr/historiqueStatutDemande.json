@@ -1,0 +1,26 @@
+{
+  "conciergerieApp": {
+    "historiqueStatutDemande": {
+      "home": {
+        "title": "HistoriqueStatutDemandes",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Historique Statut Demande",
+        "createOrEditLabel": "Créer ou éditer un Historique Statut Demande",
+        "notFound": "Aucun Historique Statut Demande trouvé"
+      },
+      "created": "Un nouveau Historique Statut Demande a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Historique Statut Demande avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Historique Statut Demande avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Historique Statut Demande {{ id }} ?"
+      },
+      "detail": {
+        "title": "Historique Statut Demande"
+      },
+      "id": "Id",
+      "dateChangement": "Date Changement",
+      "demande": "Demande",
+      "statut": "Statut"
+    }
+  }
+}

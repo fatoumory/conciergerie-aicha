@@ -1,0 +1,62 @@
+{
+  "annotations": {
+    "changelogDate": "20260922090910"
+  },
+  "applications": ["*"],
+  "documentation": "Règle d'accès à un service selon le segment et le type du client.",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "autorise",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "gratuit",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dateDebut",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dateFin",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "name": "EligibiliteService",
+  "relationships": [
+    {
+      "otherEntityField": "libelle",
+      "otherEntityName": "serviceConciergerie",
+      "relationshipName": "service",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "libelle",
+      "otherEntityName": "segmentClient",
+      "relationshipName": "segmentClient",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "libelle",
+      "otherEntityName": "typeClient",
+      "relationshipName": "typeClient",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

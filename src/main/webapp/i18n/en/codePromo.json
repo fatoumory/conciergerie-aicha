@@ -1,0 +1,27 @@
+{
+  "conciergerieApp": {
+    "codePromo": {
+      "home": {
+        "title": "Code Promos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Code Promo",
+        "createOrEditLabel": "Create or edit a Code Promo",
+        "notFound": "No Code Promos found"
+      },
+      "created": "A new Code Promo is created with identifier {{ param }}",
+      "updated": "A Code Promo is updated with identifier {{ param }}",
+      "deleted": "A Code Promo is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Code Promo {{ id }}?"
+      },
+      "detail": {
+        "title": "Code Promo"
+      },
+      "id": "Id",
+      "code": "Code",
+      "valeur": "Valeur",
+      "dateDebut": "Date Debut",
+      "dateFin": "Date Fin"
+    }
+  }
+}

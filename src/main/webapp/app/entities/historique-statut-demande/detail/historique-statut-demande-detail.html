@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (historiqueStatutDemande(); as historiqueStatutDemandeRef) {
+      <div>
+        <h2 data-cy="historiqueStatutDemandeDetailsHeading">
+          <span jhiTranslate="conciergerieApp.historiqueStatutDemande.detail.title">Historique Statut Demande</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="conciergerieApp.historiqueStatutDemande.id">Id</span></dt>
+          <dd>
+            <span>{{ historiqueStatutDemandeRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.historiqueStatutDemande.dateChangement">Date Changement</span></dt>
+          <dd>
+            <span>{{ historiqueStatutDemandeRef.dateChangement | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.historiqueStatutDemande.demande">Demande</span></dt>
+          <dd>
+            @if (historiqueStatutDemande()!.demande) {
+              <div>
+                <a [routerLink]="['/demande', historiqueStatutDemande()!.demande?.id, 'view']">{{
+                  historiqueStatutDemandeRef.demande?.id
+                }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.historiqueStatutDemande.statut">Statut</span></dt>
+          <dd>
+            @if (historiqueStatutDemande()!.statut) {
+              <div>
+                <a [routerLink]="['/statut-demande', historiqueStatutDemande()!.statut?.id, 'view']">{{
+                  historiqueStatutDemandeRef.statut?.libelle
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="button" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/historique-statut-demande', historiqueStatutDemandeRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

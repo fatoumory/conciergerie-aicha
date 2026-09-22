@@ -1,0 +1,109 @@
+<div>
+  <h2 id="page-heading" data-cy="PartenaireZoneHeading">
+    <span jhiTranslate="conciergerieApp.partenaireZone.home.title">PartenaireZones</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading()">
+        <fa-icon icon="sync" [animation]="isLoading() ? 'spin' : undefined" />
+        <span jhiTranslate="conciergerieApp.partenaireZone.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-partenaire-zone"
+        [routerLink]="['/partenaire-zone/new']"
+      >
+        <fa-icon icon="plus" />
+        <span jhiTranslate="conciergerieApp.partenaireZone.home.createLabel">Créer un nouveau Partenaire Zone</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  @if (partenaireZones().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="conciergerieApp.partenaireZone.home.notFound">Aucun Partenaire Zone trouvé</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.partenaireZone.id">Id</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="partenaire.libelle">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.partenaireZone.partenaire">Partenaire</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="zone.libelle">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.partenaireZone.zone">Zone</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (partenaireZone of partenaireZones(); track trackId(partenaireZone)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/partenaire-zone', partenaireZone.id, 'view']">{{ partenaireZone.id }}</a>
+              </td>
+              <td>
+                @if (partenaireZone.partenaire) {
+                  <div>
+                    <a [routerLink]="['/partenaire', partenaireZone.partenaire.id, 'view']">{{ partenaireZone.partenaire.libelle }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (partenaireZone.zone) {
+                  <div>
+                    <a [routerLink]="['/zone', partenaireZone.zone.id, 'view']">{{ partenaireZone.zone.libelle }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a
+                    [routerLink]="['/partenaire-zone', partenaireZone.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a
+                    [routerLink]="['/partenaire-zone', partenaireZone.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="button" (click)="delete(partenaireZone)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

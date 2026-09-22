@@ -1,0 +1,28 @@
+{
+  "conciergerieApp": {
+    "mouvementStock": {
+      "home": {
+        "title": "MouvementStocks",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Mouvement Stock",
+        "createOrEditLabel": "Créer ou éditer un Mouvement Stock",
+        "notFound": "Aucun Mouvement Stock trouvé"
+      },
+      "created": "Un nouveau Mouvement Stock a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Mouvement Stock avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Mouvement Stock avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Mouvement Stock {{ id }} ?"
+      },
+      "detail": {
+        "title": "Mouvement Stock"
+      },
+      "id": "Id",
+      "type": "Type",
+      "quantite": "Quantite",
+      "dateTransaction": "Date Transaction",
+      "motif": "Motif",
+      "compteStock": "Compte Stock"
+    }
+  }
+}

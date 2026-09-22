@@ -1,0 +1,41 @@
+{
+  "annotations": {
+    "changelogDate": "20260922090909"
+  },
+  "applications": ["*"],
+  "documentation": "Service proposé aux clients (Service dans le document).",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "code",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "libelle",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    }
+  ],
+  "name": "ServiceConciergerie",
+  "relationships": [
+    {
+      "otherEntityField": "libelle",
+      "otherEntityName": "typeService",
+      "relationshipName": "typeService",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

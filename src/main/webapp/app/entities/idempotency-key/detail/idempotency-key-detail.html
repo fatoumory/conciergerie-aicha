@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (idempotencyKey(); as idempotencyKeyRef) {
+      <div>
+        <h2 data-cy="idempotencyKeyDetailsHeading">
+          <span jhiTranslate="conciergerieApp.idempotencyKey.detail.title">Idempotency Key</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="conciergerieApp.idempotencyKey.id">Id</span></dt>
+          <dd>
+            <span>{{ idempotencyKeyRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.idempotencyKey.cle">Cle</span></dt>
+          <dd>
+            <span>{{ idempotencyKeyRef.cle }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.idempotencyKey.typeOperation">Type Operation</span></dt>
+          <dd>
+            <span>{{ idempotencyKeyRef.typeOperation }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.idempotencyKey.resourceId">Resource Id</span></dt>
+          <dd>
+            <span>{{ idempotencyKeyRef.resourceId }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.idempotencyKey.dateCreation">Date Creation</span></dt>
+          <dd>
+            <span>{{ idempotencyKeyRef.dateCreation | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.idempotencyKey.dateExpiration">Date Expiration</span></dt>
+          <dd>
+            <span>{{ idempotencyKeyRef.dateExpiration | formatMediumDatetime }}</span>
+          </dd>
+        </dl>
+
+        <button type="button" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/idempotency-key', idempotencyKeyRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

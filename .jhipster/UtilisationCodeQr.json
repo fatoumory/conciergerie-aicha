@@ -1,0 +1,41 @@
+{
+  "annotations": {
+    "changelogDate": "20260922090927"
+  },
+  "applications": ["*"],
+  "documentation": "Scan / utilisation du QR par un partenaire.",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "dateUtilisation",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "UtilisationCodeQr",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityField": "code",
+      "otherEntityName": "codeQrService",
+      "relationshipName": "codeQrService",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "libelle",
+      "otherEntityName": "partenaire",
+      "relationshipName": "partenaire",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

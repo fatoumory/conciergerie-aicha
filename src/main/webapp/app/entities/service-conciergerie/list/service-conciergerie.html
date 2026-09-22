@@ -1,0 +1,119 @@
+<div>
+  <h2 id="page-heading" data-cy="ServiceConciergerieHeading">
+    <span jhiTranslate="conciergerieApp.serviceConciergerie.home.title">ServiceConciergeries</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading()">
+        <fa-icon icon="sync" [animation]="isLoading() ? 'spin' : undefined" />
+        <span jhiTranslate="conciergerieApp.serviceConciergerie.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-service-conciergerie"
+        [routerLink]="['/service-conciergerie/new']"
+      >
+        <fa-icon icon="plus" />
+        <span jhiTranslate="conciergerieApp.serviceConciergerie.home.createLabel">Créer un nouveau Service Conciergerie</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  @if (serviceConciergeries().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="conciergerieApp.serviceConciergerie.home.notFound">Aucun Service Conciergerie trouvé</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.serviceConciergerie.id">Id</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="code">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.serviceConciergerie.code">Code</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="libelle">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.serviceConciergerie.libelle">Libelle</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="description">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.serviceConciergerie.description">Description</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="typeService.libelle">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.serviceConciergerie.typeService">Type Service</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (serviceConciergerie of serviceConciergeries(); track trackId(serviceConciergerie)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/service-conciergerie', serviceConciergerie.id, 'view']">{{ serviceConciergerie.id }}</a>
+              </td>
+              <td>{{ serviceConciergerie.code }}</td>
+              <td>{{ serviceConciergerie.libelle }}</td>
+              <td>{{ serviceConciergerie.description }}</td>
+              <td>
+                @if (serviceConciergerie.typeService) {
+                  <div>
+                    <a [routerLink]="['/type-service', serviceConciergerie.typeService.id, 'view']">{{
+                      serviceConciergerie.typeService.libelle
+                    }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a
+                    [routerLink]="['/service-conciergerie', serviceConciergerie.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a
+                    [routerLink]="['/service-conciergerie', serviceConciergerie.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="button" (click)="delete(serviceConciergerie)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

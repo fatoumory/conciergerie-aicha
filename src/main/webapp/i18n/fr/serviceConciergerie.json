@@ -1,0 +1,28 @@
+{
+  "conciergerieApp": {
+    "serviceConciergerie": {
+      "home": {
+        "title": "ServiceConciergeries",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Service Conciergerie",
+        "createOrEditLabel": "Créer ou éditer un Service Conciergerie",
+        "notFound": "Aucun Service Conciergerie trouvé"
+      },
+      "created": "Un nouveau Service Conciergerie a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Service Conciergerie avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Service Conciergerie avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Service Conciergerie {{ id }} ?"
+      },
+      "detail": {
+        "title": "Service Conciergerie"
+      },
+      "id": "Id",
+      "code": "Code",
+      "libelle": "Libelle",
+      "description": "Description",
+      "typeService": "Type Service",
+      "compteStock": "Compte Stock"
+    }
+  }
+}

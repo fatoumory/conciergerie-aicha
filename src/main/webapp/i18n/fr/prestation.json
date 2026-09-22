@@ -1,0 +1,27 @@
+{
+  "conciergerieApp": {
+    "prestation": {
+      "home": {
+        "title": "Prestations",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Prestation",
+        "createOrEditLabel": "Créer ou éditer un Prestation",
+        "notFound": "Aucun Prestation trouvé"
+      },
+      "created": "Un nouveau Prestation a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Prestation avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Prestation avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Prestation {{ id }} ?"
+      },
+      "detail": {
+        "title": "Prestation"
+      },
+      "id": "Id",
+      "dateDebut": "Date Debut",
+      "dateFin": "Date Fin",
+      "demande": "Demande",
+      "partenaire": "Partenaire"
+    }
+  }
+}

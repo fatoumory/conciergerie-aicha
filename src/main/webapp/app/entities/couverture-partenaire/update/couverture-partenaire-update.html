@@ -1,0 +1,134 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-couverture-partenaire-heading"
+        data-cy="CouverturePartenaireCreateUpdateHeading"
+        jhiTranslate="conciergerieApp.couverturePartenaire.home.createOrEditLabel"
+      >
+        Créer ou éditer un Couverture Partenaire
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="conciergerieApp.couverturePartenaire.id">Id</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let dateDebutRef = editForm.get('dateDebut')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_dateDebut" jhiTranslate="conciergerieApp.couverturePartenaire.dateDebut">Date Debut</label>
+          <div class="input-group">
+            <input
+              id="field_dateDebut"
+              data-cy="dateDebut"
+              type="text"
+              class="form-control"
+              name="dateDebut"
+              ngbDatepicker
+              #dateDebutDp="ngbDatepicker"
+              formControlName="dateDebut"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateDebutDp.toggle()"><fa-icon icon="calendar-alt" /></button>
+          </div>
+          @if (dateDebutRef.invalid && (dateDebutRef.dirty || dateDebutRef.touched)) {
+            <div>
+              @if (dateDebutRef.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_dateFin" jhiTranslate="conciergerieApp.couverturePartenaire.dateFin">Date Fin</label>
+          <div class="input-group">
+            <input
+              id="field_dateFin"
+              data-cy="dateFin"
+              type="text"
+              class="form-control"
+              name="dateFin"
+              ngbDatepicker
+              #dateFinDp="ngbDatepicker"
+              formControlName="dateFin"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateFinDp.toggle()"><fa-icon icon="calendar-alt" /></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_partenaire" jhiTranslate="conciergerieApp.couverturePartenaire.partenaire">Partenaire</label>
+          <select
+            class="form-select"
+            id="field_partenaire"
+            data-cy="partenaire"
+            name="partenaire"
+            formControlName="partenaire"
+            [compareWith]="comparePartenaire"
+          >
+            @if (!editForm.get('partenaire')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (partenaireOption of partenairesSharedCollection(); track $index) {
+              <option [ngValue]="partenaireOption">{{ partenaireOption.libelle }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['partenaire'])!.invalid && (editForm.get(['partenaire'])!.dirty || editForm.get(['partenaire'])!.touched)) {
+          <div>
+            @if (editForm.get(['partenaire'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_service" jhiTranslate="conciergerieApp.couverturePartenaire.service">Service</label>
+          <select
+            class="form-select"
+            id="field_service"
+            data-cy="service"
+            name="service"
+            formControlName="service"
+            [compareWith]="compareServiceConciergerie"
+          >
+            @if (!editForm.get('service')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (serviceConciergerieOption of serviceConciergeriesSharedCollection(); track $index) {
+              <option [ngValue]="serviceConciergerieOption">{{ serviceConciergerieOption.libelle }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['service'])!.invalid && (editForm.get(['service'])!.dirty || editForm.get(['service'])!.touched)) {
+          <div>
+            @if (editForm.get(['service'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

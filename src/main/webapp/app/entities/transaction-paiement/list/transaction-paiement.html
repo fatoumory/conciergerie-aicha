@@ -1,0 +1,160 @@
+<div>
+  <h2 id="page-heading" data-cy="TransactionPaiementHeading">
+    <span jhiTranslate="conciergerieApp.transactionPaiement.home.title">TransactionPaiements</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading()">
+        <fa-icon icon="sync" [animation]="isLoading() ? 'spin' : undefined" />
+        <span jhiTranslate="conciergerieApp.transactionPaiement.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-transaction-paiement"
+        [routerLink]="['/transaction-paiement/new']"
+      >
+        <fa-icon icon="plus" />
+        <span jhiTranslate="conciergerieApp.transactionPaiement.home.createLabel">Créer un nouveau Transaction Paiement</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  <jhi-filter [filters]="filters" />
+
+  @if (transactionPaiements().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="conciergerieApp.transactionPaiement.home.notFound">Aucun Transaction Paiement trouvé</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.transactionPaiement.id">Id</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="montant">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.transactionPaiement.montant">Montant</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="modePaiement">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.transactionPaiement.modePaiement">Mode Paiement</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="statut">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.transactionPaiement.statut">Statut</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="referenceExterne">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.transactionPaiement.referenceExterne">Reference Externe</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="dateTransaction">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.transactionPaiement.dateTransaction">Date Transaction</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="demande.id">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.transactionPaiement.demande">Demande</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (transactionPaiement of transactionPaiements(); track trackId(transactionPaiement)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/transaction-paiement', transactionPaiement.id, 'view']">{{ transactionPaiement.id }}</a>
+              </td>
+              <td>{{ transactionPaiement.montant }}</td>
+              <td [jhiTranslate]="'conciergerieApp.ModePaiement.' + (transactionPaiement.modePaiement ?? 'null')">
+                {{ { null: '', ORANGE_MONEY: 'ORANGE_MONEY' }[transactionPaiement.modePaiement ?? 'null'] }}
+              </td>
+              <td [jhiTranslate]="'conciergerieApp.StatutTransaction.' + (transactionPaiement.statut ?? 'null')">
+                {{
+                  { null: '', EN_ATTENTE: 'EN_ATTENTE', SUCCES: 'SUCCES', FAILED: 'FAILED', ANNULE: 'ANNULE' }[
+                    transactionPaiement.statut ?? 'null'
+                  ]
+                }}
+              </td>
+              <td>{{ transactionPaiement.referenceExterne }}</td>
+              <td>{{ transactionPaiement.dateTransaction | formatMediumDatetime }}</td>
+              <td>
+                @if (transactionPaiement.demande) {
+                  <div>
+                    <a [routerLink]="['/demande', transactionPaiement.demande.id, 'view']">{{ transactionPaiement.demande.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a
+                    [routerLink]="['/transaction-paiement', transactionPaiement.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a
+                    [routerLink]="['/transaction-paiement', transactionPaiement.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="button" (click)="delete(transactionPaiement)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (transactionPaiements().length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page(), totalItems: totalItems(), itemsPerPage: itemsPerPage() }" />
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems()"
+          [page]="page()"
+          [pageSize]="itemsPerPage()"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        />
+      </div>
+    </div>
+  }
+</div>

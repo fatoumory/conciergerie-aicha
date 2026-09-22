@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (notification(); as notificationRef) {
+      <div>
+        <h2 data-cy="notificationDetailsHeading"><span jhiTranslate="conciergerieApp.notification.detail.title">Notification</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="conciergerieApp.notification.id">Id</span></dt>
+          <dd>
+            <span>{{ notificationRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.notification.titre">Titre</span></dt>
+          <dd>
+            <span>{{ notificationRef.titre }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.notification.message">Message</span></dt>
+          <dd>
+            <span>{{ notificationRef.message }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.notification.dateEnvoi">Date Envoi</span></dt>
+          <dd>
+            <span>{{ notificationRef.dateEnvoi | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.notification.lu">Lu</span></dt>
+          <dd>
+            <span>{{ notificationRef.lu }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.notification.client">Client</span></dt>
+          <dd>
+            @if (notification()!.client) {
+              <div>
+                <a [routerLink]="['/client', notification()!.client?.id, 'view']">{{ notificationRef.client?.numero }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.notification.demande">Demande</span></dt>
+          <dd>
+            @if (notification()!.demande) {
+              <div>
+                <a [routerLink]="['/demande', notification()!.demande?.id, 'view']">{{ notificationRef.demande?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="button" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/notification', notificationRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

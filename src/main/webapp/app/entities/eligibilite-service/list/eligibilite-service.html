@@ -1,0 +1,156 @@
+<div>
+  <h2 id="page-heading" data-cy="EligibiliteServiceHeading">
+    <span jhiTranslate="conciergerieApp.eligibiliteService.home.title">EligibiliteServices</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading()">
+        <fa-icon icon="sync" [animation]="isLoading() ? 'spin' : undefined" />
+        <span jhiTranslate="conciergerieApp.eligibiliteService.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-eligibilite-service"
+        [routerLink]="['/eligibilite-service/new']"
+      >
+        <fa-icon icon="plus" />
+        <span jhiTranslate="conciergerieApp.eligibiliteService.home.createLabel">Créer un nouveau Eligibilite Service</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  @if (eligibiliteServices().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="conciergerieApp.eligibiliteService.home.notFound">Aucun Eligibilite Service trouvé</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.eligibiliteService.id">Id</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="autorise">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.eligibiliteService.autorise">Autorise</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="gratuit">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.eligibiliteService.gratuit">Gratuit</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="dateDebut">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.eligibiliteService.dateDebut">Date Debut</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="dateFin">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.eligibiliteService.dateFin">Date Fin</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="service.libelle">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.eligibiliteService.service">Service</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="segmentClient.libelle">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.eligibiliteService.segmentClient">Segment Client</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="typeClient.libelle">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.eligibiliteService.typeClient">Type Client</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (eligibiliteService of eligibiliteServices(); track trackId(eligibiliteService)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/eligibilite-service', eligibiliteService.id, 'view']">{{ eligibiliteService.id }}</a>
+              </td>
+              <td>{{ eligibiliteService.autorise }}</td>
+              <td>{{ eligibiliteService.gratuit }}</td>
+              <td>{{ eligibiliteService.dateDebut | formatMediumDate }}</td>
+              <td>{{ eligibiliteService.dateFin | formatMediumDate }}</td>
+              <td>
+                @if (eligibiliteService.service) {
+                  <div>
+                    <a [routerLink]="['/service-conciergerie', eligibiliteService.service.id, 'view']">{{
+                      eligibiliteService.service.libelle
+                    }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (eligibiliteService.segmentClient) {
+                  <div>
+                    <a [routerLink]="['/segment-client', eligibiliteService.segmentClient.id, 'view']">{{
+                      eligibiliteService.segmentClient.libelle
+                    }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (eligibiliteService.typeClient) {
+                  <div>
+                    <a [routerLink]="['/type-client', eligibiliteService.typeClient.id, 'view']">{{
+                      eligibiliteService.typeClient.libelle
+                    }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a
+                    [routerLink]="['/eligibilite-service', eligibiliteService.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a
+                    [routerLink]="['/eligibilite-service', eligibiliteService.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="button" (click)="delete(eligibiliteService)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

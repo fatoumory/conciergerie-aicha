@@ -1,0 +1,35 @@
+{
+  "annotations": {
+    "changelogDate": "20260922090917"
+  },
+  "applications": ["*"],
+  "documentation": "Zones d'intervention d'un partenaire.",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    }
+  ],
+  "name": "PartenaireZone",
+  "relationships": [
+    {
+      "otherEntityField": "libelle",
+      "otherEntityName": "partenaire",
+      "relationshipName": "partenaire",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "libelle",
+      "otherEntityName": "zone",
+      "relationshipName": "zone",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

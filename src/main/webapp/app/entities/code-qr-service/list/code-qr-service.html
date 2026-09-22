@@ -1,0 +1,133 @@
+<div>
+  <h2 id="page-heading" data-cy="CodeQrServiceHeading">
+    <span jhiTranslate="conciergerieApp.codeQrService.home.title">CodeQrServices</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading()">
+        <fa-icon icon="sync" [animation]="isLoading() ? 'spin' : undefined" />
+        <span jhiTranslate="conciergerieApp.codeQrService.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-code-qr-service"
+        [routerLink]="['/code-qr-service/new']"
+      >
+        <fa-icon icon="plus" />
+        <span jhiTranslate="conciergerieApp.codeQrService.home.createLabel">Créer un nouveau Code Qr Service</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  @if (codeQrServices().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="conciergerieApp.codeQrService.home.notFound">Aucun Code Qr Service trouvé</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.codeQrService.id">Id</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="code">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.codeQrService.code">Code</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="qrCode">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.codeQrService.qrCode">Qr Code</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="dateGeneration">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.codeQrService.dateGeneration">Date Generation</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="dateExpiration">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.codeQrService.dateExpiration">Date Expiration</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="statut">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.codeQrService.statut">Statut</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="demande.id">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.codeQrService.demande">Demande</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (codeQrService of codeQrServices(); track trackId(codeQrService)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/code-qr-service', codeQrService.id, 'view']">{{ codeQrService.id }}</a>
+              </td>
+              <td>{{ codeQrService.code }}</td>
+              <td>{{ codeQrService.qrCode }}</td>
+              <td>{{ codeQrService.dateGeneration | formatMediumDatetime }}</td>
+              <td>{{ codeQrService.dateExpiration | formatMediumDatetime }}</td>
+              <td [jhiTranslate]="'conciergerieApp.StatutCodeQr.' + (codeQrService.statut ?? 'null')">
+                {{ { null: '', VALIDE: 'VALIDE', UTILISE: 'UTILISE', EXPIRE: 'EXPIRE', ANNULE: 'ANNULE' }[codeQrService.statut ?? 'null'] }}
+              </td>
+              <td>
+                @if (codeQrService.demande) {
+                  <div>
+                    <a [routerLink]="['/demande', codeQrService.demande.id, 'view']">{{ codeQrService.demande.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a
+                    [routerLink]="['/code-qr-service', codeQrService.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a
+                    [routerLink]="['/code-qr-service', codeQrService.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="button" (click)="delete(codeQrService)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

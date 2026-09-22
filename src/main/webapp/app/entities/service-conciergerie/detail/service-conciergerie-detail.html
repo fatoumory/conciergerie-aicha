@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (serviceConciergerie(); as serviceConciergerieRef) {
+      <div>
+        <h2 data-cy="serviceConciergerieDetailsHeading">
+          <span jhiTranslate="conciergerieApp.serviceConciergerie.detail.title">Service Conciergerie</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="conciergerieApp.serviceConciergerie.id">Id</span></dt>
+          <dd>
+            <span>{{ serviceConciergerieRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.serviceConciergerie.code">Code</span></dt>
+          <dd>
+            <span>{{ serviceConciergerieRef.code }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.serviceConciergerie.libelle">Libelle</span></dt>
+          <dd>
+            <span>{{ serviceConciergerieRef.libelle }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.serviceConciergerie.description">Description</span></dt>
+          <dd>
+            <span>{{ serviceConciergerieRef.description }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.serviceConciergerie.typeService">Type Service</span></dt>
+          <dd>
+            @if (serviceConciergerie()!.typeService) {
+              <div>
+                <a [routerLink]="['/type-service', serviceConciergerie()!.typeService?.id, 'view']">{{
+                  serviceConciergerieRef.typeService?.libelle
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="button" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/service-conciergerie', serviceConciergerieRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

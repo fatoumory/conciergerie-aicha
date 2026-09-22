@@ -1,0 +1,25 @@
+{
+  "conciergerieApp": {
+    "partenaireZone": {
+      "home": {
+        "title": "PartenaireZones",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Partenaire Zone",
+        "createOrEditLabel": "Créer ou éditer un Partenaire Zone",
+        "notFound": "Aucun Partenaire Zone trouvé"
+      },
+      "created": "Un nouveau Partenaire Zone a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Partenaire Zone avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Partenaire Zone avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Partenaire Zone {{ id }} ?"
+      },
+      "detail": {
+        "title": "Partenaire Zone"
+      },
+      "id": "Id",
+      "partenaire": "Partenaire",
+      "zone": "Zone"
+    }
+  }
+}

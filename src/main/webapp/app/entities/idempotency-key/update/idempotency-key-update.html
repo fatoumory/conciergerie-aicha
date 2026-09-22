@@ -1,0 +1,135 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-idempotency-key-heading"
+        data-cy="IdempotencyKeyCreateUpdateHeading"
+        jhiTranslate="conciergerieApp.idempotencyKey.home.createOrEditLabel"
+      >
+        Créer ou éditer un Idempotency Key
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="conciergerieApp.idempotencyKey.id">Id</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let cleRef = editForm.get('cle')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_cle" jhiTranslate="conciergerieApp.idempotencyKey.cle">Cle</label>
+          <input type="text" class="form-control" name="cle" id="field_cle" data-cy="cle" formControlName="cle" />
+          @if (cleRef.invalid && (cleRef.dirty || cleRef.touched)) {
+            <div>
+              @if (cleRef.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let typeOperationRef = editForm.get('typeOperation')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_typeOperation" jhiTranslate="conciergerieApp.idempotencyKey.typeOperation"
+            >Type Operation</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="typeOperation"
+            id="field_typeOperation"
+            data-cy="typeOperation"
+            formControlName="typeOperation"
+          />
+          @if (typeOperationRef.invalid && (typeOperationRef.dirty || typeOperationRef.touched)) {
+            <div>
+              @if (typeOperationRef.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_resourceId" jhiTranslate="conciergerieApp.idempotencyKey.resourceId">Resource Id</label>
+          <input
+            type="text"
+            class="form-control"
+            name="resourceId"
+            id="field_resourceId"
+            data-cy="resourceId"
+            formControlName="resourceId"
+          />
+        </div>
+
+        @let dateCreationRef = editForm.get('dateCreation')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_dateCreation" jhiTranslate="conciergerieApp.idempotencyKey.dateCreation"
+            >Date Creation</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_dateCreation"
+              data-cy="dateCreation"
+              type="datetime-local"
+              class="form-control"
+              name="dateCreation"
+              formControlName="dateCreation"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          @if (dateCreationRef.invalid && (dateCreationRef.dirty || dateCreationRef.touched)) {
+            <div>
+              @if (dateCreationRef.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!dateCreationRef.errors?.datetimelocal"
+                jhiTranslate="entity.validation.datetimelocal"
+                >Ce champ doit être une date et une heure.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_dateExpiration" jhiTranslate="conciergerieApp.idempotencyKey.dateExpiration"
+            >Date Expiration</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_dateExpiration"
+              data-cy="dateExpiration"
+              type="datetime-local"
+              class="form-control"
+              name="dateExpiration"
+              formControlName="dateExpiration"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

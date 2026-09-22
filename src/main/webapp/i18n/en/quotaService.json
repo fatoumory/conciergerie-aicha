@@ -1,0 +1,29 @@
+{
+  "conciergerieApp": {
+    "quotaService": {
+      "home": {
+        "title": "Quota Services",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Quota Service",
+        "createOrEditLabel": "Create or edit a Quota Service",
+        "notFound": "No Quota Services found"
+      },
+      "created": "A new Quota Service is created with identifier {{ param }}",
+      "updated": "A Quota Service is updated with identifier {{ param }}",
+      "deleted": "A Quota Service is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Quota Service {{ id }}?"
+      },
+      "detail": {
+        "title": "Quota Service"
+      },
+      "id": "Id",
+      "limite": "Limite",
+      "unite": "Unite",
+      "periode": "Periode",
+      "dateDebut": "Date Debut",
+      "dateFin": "Date Fin",
+      "eligibiliteService": "Eligibilite Service"
+    }
+  }
+}

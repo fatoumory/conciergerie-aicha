@@ -1,0 +1,51 @@
+{
+  "annotations": {
+    "changelogDate": "20260922090926"
+  },
+  "applications": ["*"],
+  "documentation": "QR Code matérialisant le droit d'accès à un service.",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "code",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "qrCode",
+      "fieldType": "TextBlob",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dateGeneration",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dateExpiration",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "statut",
+      "fieldType": "StatutCodeQr",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "VALIDE,UTILISE,EXPIRE,ANNULE"
+    }
+  ],
+  "name": "CodeQrService",
+  "relationships": [
+    {
+      "otherEntityName": "demande",
+      "relationshipName": "demande",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

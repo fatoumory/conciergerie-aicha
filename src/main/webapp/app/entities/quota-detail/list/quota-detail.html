@@ -1,0 +1,108 @@
+<div>
+  <h2 id="page-heading" data-cy="QuotaDetailHeading">
+    <span jhiTranslate="conciergerieApp.quotaDetail.home.title">QuotaDetails</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading()">
+        <fa-icon icon="sync" [animation]="isLoading() ? 'spin' : undefined" />
+        <span jhiTranslate="conciergerieApp.quotaDetail.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-quota-detail"
+        [routerLink]="['/quota-detail/new']"
+      >
+        <fa-icon icon="plus" />
+        <span jhiTranslate="conciergerieApp.quotaDetail.home.createLabel">Créer un nouveau Quota Detail</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  @if (quotaDetails().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="conciergerieApp.quotaDetail.home.notFound">Aucun Quota Detail trouvé</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.quotaDetail.id">Id</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="limite">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.quotaDetail.limite">Limite</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="quotaService.id">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.quotaDetail.quotaService">Quota Service</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="zone.libelle">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.quotaDetail.zone">Zone</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (quotaDetail of quotaDetails(); track trackId(quotaDetail)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/quota-detail', quotaDetail.id, 'view']">{{ quotaDetail.id }}</a>
+              </td>
+              <td>{{ quotaDetail.limite }}</td>
+              <td>
+                @if (quotaDetail.quotaService) {
+                  <div>
+                    <a [routerLink]="['/quota-service', quotaDetail.quotaService.id, 'view']">{{ quotaDetail.quotaService.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (quotaDetail.zone) {
+                  <div>
+                    <a [routerLink]="['/zone', quotaDetail.zone.id, 'view']">{{ quotaDetail.zone.libelle }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/quota-detail', quotaDetail.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a [routerLink]="['/quota-detail', quotaDetail.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="button" (click)="delete(quotaDetail)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

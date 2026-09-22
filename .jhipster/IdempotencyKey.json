@@ -1,0 +1,42 @@
+{
+  "annotations": {
+    "changelogDate": "20260922090933"
+  },
+  "applications": ["*"],
+  "documentation": "Empêche l'exécution multiple d'une même opération.",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "cle",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "typeOperation",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "resourceId",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "dateCreation",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dateExpiration",
+      "fieldType": "Instant"
+    }
+  ],
+  "name": "IdempotencyKey",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

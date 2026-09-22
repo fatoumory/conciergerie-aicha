@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (segmentClient(); as segmentClientRef) {
+      <div>
+        <h2 data-cy="segmentClientDetailsHeading"><span jhiTranslate="conciergerieApp.segmentClient.detail.title">Segment Client</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="conciergerieApp.segmentClient.id">Id</span></dt>
+          <dd>
+            <span>{{ segmentClientRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.segmentClient.code">Code</span></dt>
+          <dd>
+            <span>{{ segmentClientRef.code }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.segmentClient.libelle">Libelle</span></dt>
+          <dd>
+            <span>{{ segmentClientRef.libelle }}</span>
+          </dd>
+        </dl>
+
+        <button type="button" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/segment-client', segmentClientRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

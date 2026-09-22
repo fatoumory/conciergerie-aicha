@@ -1,0 +1,48 @@
+{
+  "annotations": {
+    "changelogDate": "20260922090919"
+  },
+  "applications": ["*"],
+  "documentation": "Mouvement de crédit/débit du stock (TransactionAccount dans le document).",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "TypeMouvementStock",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "CREDIT,DEBIT"
+    },
+    {
+      "fieldName": "quantite",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "dateTransaction",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "motif",
+      "fieldType": "String"
+    }
+  ],
+  "name": "MouvementStock",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "compteStock",
+      "relationshipName": "compteStock",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

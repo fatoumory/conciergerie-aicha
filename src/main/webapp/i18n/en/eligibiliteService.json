@@ -1,0 +1,30 @@
+{
+  "conciergerieApp": {
+    "eligibiliteService": {
+      "home": {
+        "title": "Eligibilite Services",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Eligibilite Service",
+        "createOrEditLabel": "Create or edit a Eligibilite Service",
+        "notFound": "No Eligibilite Services found"
+      },
+      "created": "A new Eligibilite Service is created with identifier {{ param }}",
+      "updated": "A Eligibilite Service is updated with identifier {{ param }}",
+      "deleted": "A Eligibilite Service is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Eligibilite Service {{ id }}?"
+      },
+      "detail": {
+        "title": "Eligibilite Service"
+      },
+      "id": "Id",
+      "autorise": "Autorise",
+      "gratuit": "Gratuit",
+      "dateDebut": "Date Debut",
+      "dateFin": "Date Fin",
+      "service": "Service",
+      "segmentClient": "Segment Client",
+      "typeClient": "Type Client"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "conciergerieApp": {
+    "idempotencyKey": {
+      "home": {
+        "title": "IdempotencyKeys",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Idempotency Key",
+        "createOrEditLabel": "Créer ou éditer un Idempotency Key",
+        "notFound": "Aucun Idempotency Key trouvé"
+      },
+      "created": "Un nouveau Idempotency Key a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Idempotency Key avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Idempotency Key avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Idempotency Key {{ id }} ?"
+      },
+      "detail": {
+        "title": "Idempotency Key"
+      },
+      "id": "Id",
+      "cle": "Cle",
+      "typeOperation": "Type Operation",
+      "resourceId": "Resource Id",
+      "dateCreation": "Date Creation",
+      "dateExpiration": "Date Expiration"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (partenaireZone(); as partenaireZoneRef) {
+      <div>
+        <h2 data-cy="partenaireZoneDetailsHeading">
+          <span jhiTranslate="conciergerieApp.partenaireZone.detail.title">Partenaire Zone</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="conciergerieApp.partenaireZone.id">Id</span></dt>
+          <dd>
+            <span>{{ partenaireZoneRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.partenaireZone.partenaire">Partenaire</span></dt>
+          <dd>
+            @if (partenaireZone()!.partenaire) {
+              <div>
+                <a [routerLink]="['/partenaire', partenaireZone()!.partenaire?.id, 'view']">{{ partenaireZoneRef.partenaire?.libelle }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.partenaireZone.zone">Zone</span></dt>
+          <dd>
+            @if (partenaireZone()!.zone) {
+              <div>
+                <a [routerLink]="['/zone', partenaireZone()!.zone?.id, 'view']">{{ partenaireZoneRef.zone?.libelle }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="button" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/partenaire-zone', partenaireZoneRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

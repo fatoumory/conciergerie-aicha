@@ -1,0 +1,43 @@
+{
+  "annotations": {
+    "changelogDate": "20260922090932"
+  },
+  "applications": ["*"],
+  "documentation": "Note et commentaire associés à une demande.",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "note",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "min", "max"],
+      "fieldValidateRulesMax": "5",
+      "fieldValidateRulesMin": "1"
+    },
+    {
+      "fieldName": "commentaire",
+      "fieldType": "TextBlob"
+    },
+    {
+      "fieldName": "dateEvaluation",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "Evaluation",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "demande",
+      "relationshipName": "demande",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

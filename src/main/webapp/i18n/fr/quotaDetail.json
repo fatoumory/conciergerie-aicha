@@ -1,0 +1,26 @@
+{
+  "conciergerieApp": {
+    "quotaDetail": {
+      "home": {
+        "title": "QuotaDetails",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Quota Detail",
+        "createOrEditLabel": "Créer ou éditer un Quota Detail",
+        "notFound": "Aucun Quota Detail trouvé"
+      },
+      "created": "Un nouveau Quota Detail a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Quota Detail avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Quota Detail avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Quota Detail {{ id }} ?"
+      },
+      "detail": {
+        "title": "Quota Detail"
+      },
+      "id": "Id",
+      "limite": "Limite",
+      "quotaService": "Quota Service",
+      "zone": "Zone"
+    }
+  }
+}

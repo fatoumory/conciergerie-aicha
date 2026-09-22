@@ -1,0 +1,66 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (quotaService(); as quotaServiceRef) {
+      <div>
+        <h2 data-cy="quotaServiceDetailsHeading"><span jhiTranslate="conciergerieApp.quotaService.detail.title">Quota Service</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="conciergerieApp.quotaService.id">Id</span></dt>
+          <dd>
+            <span>{{ quotaServiceRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.quotaService.limite">Limite</span></dt>
+          <dd>
+            <span>{{ quotaServiceRef.limite }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.quotaService.unite">Unite</span></dt>
+          <dd>
+            <span [jhiTranslate]="'conciergerieApp.UniteQuota.' + (quotaServiceRef.unite ?? 'null')">{{
+              { null: '', UNITE: 'UNITE', ACCES: 'ACCES', COURSE: 'COURSE', KG: 'KG' }[quotaServiceRef.unite ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.quotaService.periode">Periode</span></dt>
+          <dd>
+            <span [jhiTranslate]="'conciergerieApp.PeriodeQuota.' + (quotaServiceRef.periode ?? 'null')">{{
+              { null: '', JOUR: 'JOUR', SEMAINE: 'SEMAINE', MOIS: 'MOIS', TRIMESTRE: 'TRIMESTRE', ANNEE: 'ANNEE' }[
+                quotaServiceRef.periode ?? 'null'
+              ]
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.quotaService.dateDebut">Date Debut</span></dt>
+          <dd>
+            <span>{{ quotaServiceRef.dateDebut | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.quotaService.dateFin">Date Fin</span></dt>
+          <dd>
+            <span>{{ quotaServiceRef.dateFin | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.quotaService.eligibiliteService">Eligibilite Service</span></dt>
+          <dd>
+            @if (quotaService()!.eligibiliteService) {
+              <div>
+                <a [routerLink]="['/eligibilite-service', quotaService()!.eligibiliteService?.id, 'view']">{{
+                  quotaServiceRef.eligibiliteService?.id
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="button" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/quota-service', quotaServiceRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

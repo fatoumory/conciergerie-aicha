@@ -1,0 +1,108 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-profil-heading" data-cy="ProfilCreateUpdateHeading" jhiTranslate="conciergerieApp.profil.home.createOrEditLabel">
+        Créer ou éditer un Profil
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="conciergerieApp.profil.id">Id</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let codeRef = editForm.get('code')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_code" jhiTranslate="conciergerieApp.profil.code">Code</label>
+          <input type="text" class="form-control" name="code" id="field_code" data-cy="code" formControlName="code" />
+          @if (codeRef.invalid && (codeRef.dirty || codeRef.touched)) {
+            <div>
+              @if (codeRef.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let libelleRef = editForm.get('libelle')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_libelle" jhiTranslate="conciergerieApp.profil.libelle">Libelle</label>
+          <input type="text" class="form-control" name="libelle" id="field_libelle" data-cy="libelle" formControlName="libelle" />
+          @if (libelleRef.invalid && (libelleRef.dirty || libelleRef.touched)) {
+            <div>
+              @if (libelleRef.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_description" jhiTranslate="conciergerieApp.profil.description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="field_utilisateurs" jhiTranslate="conciergerieApp.profil.utilisateur">Utilisateur</label>
+          <select
+            class="form-select"
+            id="field_utilisateurs"
+            data-cy="utilisateur"
+            multiple
+            name="utilisateurs"
+            formControlName="utilisateurs"
+            [compareWith]="compareUser"
+          >
+            @for (userOption of usersSharedCollection(); track $index) {
+              <option [ngValue]="userOption">{{ userOption.login }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_roles" jhiTranslate="conciergerieApp.profil.role">Role</label>
+          <select
+            class="form-select"
+            id="field_roles"
+            data-cy="role"
+            multiple
+            name="roles"
+            formControlName="roles"
+            [compareWith]="compareAuthority"
+          >
+            @for (authorityOption of authoritiesSharedCollection(); track $index) {
+              <option [ngValue]="authorityOption">{{ authorityOption.name }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

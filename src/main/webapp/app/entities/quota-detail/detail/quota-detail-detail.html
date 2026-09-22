@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (quotaDetail(); as quotaDetailRef) {
+      <div>
+        <h2 data-cy="quotaDetailDetailsHeading"><span jhiTranslate="conciergerieApp.quotaDetail.detail.title">Quota Detail</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="conciergerieApp.quotaDetail.id">Id</span></dt>
+          <dd>
+            <span>{{ quotaDetailRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.quotaDetail.limite">Limite</span></dt>
+          <dd>
+            <span>{{ quotaDetailRef.limite }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.quotaDetail.quotaService">Quota Service</span></dt>
+          <dd>
+            @if (quotaDetail()!.quotaService) {
+              <div>
+                <a [routerLink]="['/quota-service', quotaDetail()!.quotaService?.id, 'view']">{{ quotaDetailRef.quotaService?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.quotaDetail.zone">Zone</span></dt>
+          <dd>
+            @if (quotaDetail()!.zone) {
+              <div>
+                <a [routerLink]="['/zone', quotaDetail()!.zone?.id, 'view']">{{ quotaDetailRef.zone?.libelle }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="button" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/quota-detail', quotaDetailRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

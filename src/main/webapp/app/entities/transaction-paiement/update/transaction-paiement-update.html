@@ -1,0 +1,170 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-transaction-paiement-heading"
+        data-cy="TransactionPaiementCreateUpdateHeading"
+        jhiTranslate="conciergerieApp.transactionPaiement.home.createOrEditLabel"
+      >
+        Créer ou éditer un Transaction Paiement
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="conciergerieApp.transactionPaiement.id">Id</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let montantRef = editForm.get('montant')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_montant" jhiTranslate="conciergerieApp.transactionPaiement.montant">Montant</label>
+          <input type="number" class="form-control" name="montant" id="field_montant" data-cy="montant" formControlName="montant" />
+          @if (montantRef.invalid && (montantRef.dirty || montantRef.touched)) {
+            <div>
+              @if (montantRef.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+              @if (montantRef.errors?.min) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.min" [translateValues]="{ min: '0' }"
+                  >Ce champ doit être supérieur à 0.</small
+                >
+              }
+              <small class="form-text text-danger" [hidden]="!montantRef.errors?.number" jhiTranslate="entity.validation.number"
+                >Ce champ doit être un nombre.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let modePaiementRef = editForm.get('modePaiement')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_modePaiement" jhiTranslate="conciergerieApp.transactionPaiement.modePaiement"
+            >Mode Paiement</label
+          >
+          <select class="form-select" name="modePaiement" formControlName="modePaiement" id="field_modePaiement" data-cy="modePaiement">
+            <option [ngValue]="null">{{ 'conciergerieApp.ModePaiement.null' | translate }}</option>
+            @for (modePaiement of modePaiementValues; track $index) {
+              <option [value]="modePaiement">{{ 'conciergerieApp.ModePaiement.' + modePaiement | translate }}</option>
+            }
+          </select>
+          @if (modePaiementRef.invalid && (modePaiementRef.dirty || modePaiementRef.touched)) {
+            <div>
+              @if (modePaiementRef.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let statutRef = editForm.get('statut')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_statut" jhiTranslate="conciergerieApp.transactionPaiement.statut">Statut</label>
+          <select class="form-select" name="statut" formControlName="statut" id="field_statut" data-cy="statut">
+            <option [ngValue]="null">{{ 'conciergerieApp.StatutTransaction.null' | translate }}</option>
+            @for (statutTransaction of statutTransactionValues; track $index) {
+              <option [value]="statutTransaction">{{ 'conciergerieApp.StatutTransaction.' + statutTransaction | translate }}</option>
+            }
+          </select>
+          @if (statutRef.invalid && (statutRef.dirty || statutRef.touched)) {
+            <div>
+              @if (statutRef.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_referenceExterne" jhiTranslate="conciergerieApp.transactionPaiement.referenceExterne"
+            >Reference Externe</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="referenceExterne"
+            id="field_referenceExterne"
+            data-cy="referenceExterne"
+            formControlName="referenceExterne"
+          />
+        </div>
+
+        @let dateTransactionRef = editForm.get('dateTransaction')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_dateTransaction" jhiTranslate="conciergerieApp.transactionPaiement.dateTransaction"
+            >Date Transaction</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_dateTransaction"
+              data-cy="dateTransaction"
+              type="datetime-local"
+              class="form-control"
+              name="dateTransaction"
+              formControlName="dateTransaction"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          @if (dateTransactionRef.invalid && (dateTransactionRef.dirty || dateTransactionRef.touched)) {
+            <div>
+              @if (dateTransactionRef.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!dateTransactionRef.errors?.datetimelocal"
+                jhiTranslate="entity.validation.datetimelocal"
+                >Ce champ doit être une date et une heure.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_demande" jhiTranslate="conciergerieApp.transactionPaiement.demande">Demande</label>
+          <select
+            class="form-select"
+            id="field_demande"
+            data-cy="demande"
+            name="demande"
+            formControlName="demande"
+            [compareWith]="compareDemande"
+          >
+            @if (!editForm.get('demande')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (demandeOption of demandesSharedCollection(); track $index) {
+              <option [ngValue]="demandeOption">{{ demandeOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['demande'])!.invalid && (editForm.get(['demande'])!.dirty || editForm.get(['demande'])!.touched)) {
+          <div>
+            @if (editForm.get(['demande'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

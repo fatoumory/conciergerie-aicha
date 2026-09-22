@@ -1,0 +1,141 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-mouvement-stock-heading"
+        data-cy="MouvementStockCreateUpdateHeading"
+        jhiTranslate="conciergerieApp.mouvementStock.home.createOrEditLabel"
+      >
+        Créer ou éditer un Mouvement Stock
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="conciergerieApp.mouvementStock.id">Id</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let typeRef = editForm.get('type')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_type" jhiTranslate="conciergerieApp.mouvementStock.type">Type</label>
+          <select class="form-select" name="type" formControlName="type" id="field_type" data-cy="type">
+            <option [ngValue]="null">{{ 'conciergerieApp.TypeMouvementStock.null' | translate }}</option>
+            @for (typeMouvementStock of typeMouvementStockValues; track $index) {
+              <option [value]="typeMouvementStock">{{ 'conciergerieApp.TypeMouvementStock.' + typeMouvementStock | translate }}</option>
+            }
+          </select>
+          @if (typeRef.invalid && (typeRef.dirty || typeRef.touched)) {
+            <div>
+              @if (typeRef.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let quantiteRef = editForm.get('quantite')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_quantite" jhiTranslate="conciergerieApp.mouvementStock.quantite">Quantite</label>
+          <input type="number" class="form-control" name="quantite" id="field_quantite" data-cy="quantite" formControlName="quantite" />
+          @if (quantiteRef.invalid && (quantiteRef.dirty || quantiteRef.touched)) {
+            <div>
+              @if (quantiteRef.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+              @if (quantiteRef.errors?.min) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.min" [translateValues]="{ min: '0' }"
+                  >Ce champ doit être supérieur à 0.</small
+                >
+              }
+              <small class="form-text text-danger" [hidden]="!quantiteRef.errors?.number" jhiTranslate="entity.validation.number"
+                >Ce champ doit être un nombre.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let dateTransactionRef = editForm.get('dateTransaction')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_dateTransaction" jhiTranslate="conciergerieApp.mouvementStock.dateTransaction"
+            >Date Transaction</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_dateTransaction"
+              data-cy="dateTransaction"
+              type="datetime-local"
+              class="form-control"
+              name="dateTransaction"
+              formControlName="dateTransaction"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          @if (dateTransactionRef.invalid && (dateTransactionRef.dirty || dateTransactionRef.touched)) {
+            <div>
+              @if (dateTransactionRef.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!dateTransactionRef.errors?.datetimelocal"
+                jhiTranslate="entity.validation.datetimelocal"
+                >Ce champ doit être une date et une heure.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_motif" jhiTranslate="conciergerieApp.mouvementStock.motif">Motif</label>
+          <input type="text" class="form-control" name="motif" id="field_motif" data-cy="motif" formControlName="motif" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_compteStock" jhiTranslate="conciergerieApp.mouvementStock.compteStock">Compte Stock</label>
+          <select
+            class="form-select"
+            id="field_compteStock"
+            data-cy="compteStock"
+            name="compteStock"
+            formControlName="compteStock"
+            [compareWith]="compareCompteStock"
+          >
+            @if (!editForm.get('compteStock')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (compteStockOption of compteStocksSharedCollection(); track $index) {
+              <option [ngValue]="compteStockOption">{{ compteStockOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['compteStock'])!.invalid && (editForm.get(['compteStock'])!.dirty || editForm.get(['compteStock'])!.touched)) {
+          <div>
+            @if (editForm.get(['compteStock'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+{
+  "conciergerieApp": {
+    "codeQrService": {
+      "home": {
+        "title": "CodeQrServices",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Code Qr Service",
+        "createOrEditLabel": "Créer ou éditer un Code Qr Service",
+        "notFound": "Aucun Code Qr Service trouvé"
+      },
+      "created": "Un nouveau Code Qr Service a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Code Qr Service avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Code Qr Service avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Code Qr Service {{ id }} ?"
+      },
+      "detail": {
+        "title": "Code Qr Service"
+      },
+      "id": "Id",
+      "code": "Code",
+      "qrCode": "Qr Code",
+      "dateGeneration": "Date Generation",
+      "dateExpiration": "Date Expiration",
+      "statut": "Statut",
+      "demande": "Demande"
+    }
+  }
+}

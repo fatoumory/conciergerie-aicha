@@ -1,0 +1,133 @@
+<div>
+  <h2 id="page-heading" data-cy="QuotaServiceHeading">
+    <span jhiTranslate="conciergerieApp.quotaService.home.title">QuotaServices</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading()">
+        <fa-icon icon="sync" [animation]="isLoading() ? 'spin' : undefined" />
+        <span jhiTranslate="conciergerieApp.quotaService.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-quota-service"
+        [routerLink]="['/quota-service/new']"
+      >
+        <fa-icon icon="plus" />
+        <span jhiTranslate="conciergerieApp.quotaService.home.createLabel">Créer un nouveau Quota Service</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  @if (quotaServices().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="conciergerieApp.quotaService.home.notFound">Aucun Quota Service trouvé</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.quotaService.id">Id</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="limite">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.quotaService.limite">Limite</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="unite">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.quotaService.unite">Unite</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="periode">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.quotaService.periode">Periode</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="dateDebut">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.quotaService.dateDebut">Date Debut</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="dateFin">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.quotaService.dateFin">Date Fin</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="eligibiliteService.id">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.quotaService.eligibiliteService">Eligibilite Service</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (quotaService of quotaServices(); track trackId(quotaService)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/quota-service', quotaService.id, 'view']">{{ quotaService.id }}</a>
+              </td>
+              <td>{{ quotaService.limite }}</td>
+              <td [jhiTranslate]="'conciergerieApp.UniteQuota.' + (quotaService.unite ?? 'null')">
+                {{ { null: '', UNITE: 'UNITE', ACCES: 'ACCES', COURSE: 'COURSE', KG: 'KG' }[quotaService.unite ?? 'null'] }}
+              </td>
+              <td [jhiTranslate]="'conciergerieApp.PeriodeQuota.' + (quotaService.periode ?? 'null')">
+                {{
+                  { null: '', JOUR: 'JOUR', SEMAINE: 'SEMAINE', MOIS: 'MOIS', TRIMESTRE: 'TRIMESTRE', ANNEE: 'ANNEE' }[
+                    quotaService.periode ?? 'null'
+                  ]
+                }}
+              </td>
+              <td>{{ quotaService.dateDebut | formatMediumDate }}</td>
+              <td>{{ quotaService.dateFin | formatMediumDate }}</td>
+              <td>
+                @if (quotaService.eligibiliteService) {
+                  <div>
+                    <a [routerLink]="['/eligibilite-service', quotaService.eligibiliteService.id, 'view']">{{
+                      quotaService.eligibiliteService.id
+                    }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/quota-service', quotaService.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a [routerLink]="['/quota-service', quotaService.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="button" (click)="delete(quotaService)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

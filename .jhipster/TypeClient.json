@@ -1,0 +1,28 @@
+{
+  "annotations": {
+    "changelogDate": "20260922090906"
+  },
+  "applications": ["*"],
+  "documentation": "Type de compte : PREPAYE, POSTPAYE, DDE...",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "code",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "libelle",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "TypeClient",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

@@ -1,0 +1,11 @@
+{
+  "conciergerieApp": {
+    "StatutCodeQr": {
+      "null": "",
+      "VALIDE": "VALIDE",
+      "UTILISE": "UTILISE",
+      "EXPIRE": "EXPIRE",
+      "ANNULE": "ANNULE"
+    }
+  }
+}

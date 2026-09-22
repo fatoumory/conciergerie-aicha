@@ -1,0 +1,175 @@
+<div>
+  <h2 id="page-heading" data-cy="DemandeHeading">
+    <span jhiTranslate="conciergerieApp.demande.home.title">Demandes</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading()">
+        <fa-icon icon="sync" [animation]="isLoading() ? 'spin' : undefined" />
+        <span jhiTranslate="conciergerieApp.demande.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-demande"
+        [routerLink]="['/demande/new']"
+      >
+        <fa-icon icon="plus" />
+        <span jhiTranslate="conciergerieApp.demande.home.createLabel">Créer un nouveau Demande</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error />
+
+  <jhi-alert />
+
+  <jhi-filter [filters]="filters" />
+
+  @if (demandes().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="conciergerieApp.demande.home.notFound">Aucun Demande trouvé</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.demande.id">Id</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="dateCreation">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.demande.dateCreation">Date Creation</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="description">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.demande.description">Description</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="client.numero">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.demande.client">Client</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="service.libelle">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.demande.service">Service</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="typeDemande.libelle">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.demande.typeDemande">Type Demande</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="statut.libelle">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.demande.statut">Statut</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="codePromo.code">
+              <div class="d-flex">
+                <span jhiTranslate="conciergerieApp.demande.codePromo">Code Promo</span>
+                <fa-icon class="p-1" icon="sort" />
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (demande of demandes(); track trackId(demande)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/demande', demande.id, 'view']">{{ demande.id }}</a>
+              </td>
+              <td>{{ demande.dateCreation | formatMediumDatetime }}</td>
+              <td>{{ demande.description }}</td>
+              <td>
+                @if (demande.client) {
+                  <div>
+                    <a [routerLink]="['/client', demande.client.id, 'view']">{{ demande.client.numero }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (demande.service) {
+                  <div>
+                    <a [routerLink]="['/service-conciergerie', demande.service.id, 'view']">{{ demande.service.libelle }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (demande.typeDemande) {
+                  <div>
+                    <a [routerLink]="['/type-demande', demande.typeDemande.id, 'view']">{{ demande.typeDemande.libelle }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (demande.statut) {
+                  <div>
+                    <a [routerLink]="['/statut-demande', demande.statut.id, 'view']">{{ demande.statut.libelle }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (demande.codePromo) {
+                  <div>
+                    <a [routerLink]="['/code-promo', demande.codePromo.id, 'view']">{{ demande.codePromo.code }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/demande', demande.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a [routerLink]="['/demande', demande.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="button" (click)="delete(demande)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times" />
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (demandes().length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page(), totalItems: totalItems(), itemsPerPage: itemsPerPage() }" />
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems()"
+          [page]="page()"
+          [pageSize]="itemsPerPage()"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        />
+      </div>
+    </div>
+  }
+</div>

@@ -1,0 +1,28 @@
+{
+  "conciergerieApp": {
+    "serviceConciergerie": {
+      "home": {
+        "title": "Service Conciergeries",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Service Conciergerie",
+        "createOrEditLabel": "Create or edit a Service Conciergerie",
+        "notFound": "No Service Conciergeries found"
+      },
+      "created": "A new Service Conciergerie is created with identifier {{ param }}",
+      "updated": "A Service Conciergerie is updated with identifier {{ param }}",
+      "deleted": "A Service Conciergerie is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Service Conciergerie {{ id }}?"
+      },
+      "detail": {
+        "title": "Service Conciergerie"
+      },
+      "id": "Id",
+      "code": "Code",
+      "libelle": "Libelle",
+      "description": "Description",
+      "typeService": "Type Service",
+      "compteStock": "Compte Stock"
+    }
+  }
+}

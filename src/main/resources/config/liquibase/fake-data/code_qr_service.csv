@@ -1,0 +1,31 @@
+id;code;qr_code;date_generation;date_expiration;statut;demande_id
+a164d740-f2ad-47d5-863b-e1647f11f736;certes;../fake-data/blob/hipster.txt;2026-09-21T13:48:04;2026-09-21T09:46:57;UTILISE;fd9c38c5-54ab-4771-8d96-b08668875463
+47260616-141d-42fc-bfa7-b3cf05a9dbfb;membre à vie;../fake-data/blob/hipster.txt;2026-09-22T08:14:46;2026-09-22T05:10:17;ANNULE;4ae6ea44-8a5c-4056-8c05-ce99a8be1d83
+8cc23532-dcf4-4267-b30f-80c0ca5b3826;pour que;../fake-data/blob/hipster.txt;2026-09-22T06:00:27;2026-09-22T02:03:08;UTILISE;5476a98f-ecdb-46bb-9e0f-0df30eea8d52
+5f320608-82bf-49ba-a360-148d9fa5316e;porte-parole;../fake-data/blob/hipster.txt;2026-09-22T04:49:42;2026-09-22T03:54:35;EXPIRE;146554d6-7632-4f40-b9c2-60a957d0dcd7
+eeb1d6af-9f2e-4241-b550-2d4cb6918188;jamais;../fake-data/blob/hipster.txt;2026-09-21T23:04:23;2026-09-22T01:11:44;UTILISE;339de479-657e-44c6-aa9f-93d67b70a35a
+776cc586-e09e-4035-9162-baa114fc92e3;extrêmement commissionnaire délégation;../fake-data/blob/hipster.txt;2026-09-22T04:49:25;2026-09-22T04:07:20;VALIDE;26300704-5c08-4133-92aa-b822b9f52013
+cf02589d-fa8e-4147-809b-5326d9b4214e;outre souple adorable;../fake-data/blob/hipster.txt;2026-09-21T11:32:55;2026-09-21T16:25:13;ANNULE;d7109900-4f7e-4b77-9b35-ca8214e06cbb
+a34fb937-5401-4f91-b72d-8ca74bc5e2c5;lorsque mieux dès que;../fake-data/blob/hipster.txt;2026-09-22T02:40:18;2026-09-21T17:44:31;EXPIRE;6050cbb3-6c12-46d3-8a56-30374aadec88
+8c2f06d5-1b62-4ccf-a876-38c0f98910d8;tranquille au cas où;../fake-data/blob/hipster.txt;2026-09-22T05:04:51;2026-09-22T06:06:10;EXPIRE;86f81e49-efd5-4e55-96bd-42dbaec29347
+c5579885-98a5-473c-be04-537e12814bd9;afin que à cause de;../fake-data/blob/hipster.txt;2026-09-21T10:30:14;2026-09-22T02:49:26;UTILISE;0ed188a8-9f93-454e-8cc5-160b29cfda2b
+1e0d1e09-af10-41be-8860-2896a82b6092;ronron gens;../fake-data/blob/hipster.txt;2026-09-22T07:33:16;2026-09-21T09:58:42;VALIDE;139d4b4c-454f-4fb5-9988-766b998856ed
+6e1ab74f-03d4-40ca-84d9-3bcce7896c65;loufoque;../fake-data/blob/hipster.txt;2026-09-21T16:12:35;2026-09-21T13:44:49;VALIDE;47c48f31-2ef1-4bbd-be4b-d489e8b4dd17
+d421b8f0-2a1b-4415-9c30-959c108b28d9;tellement athlète;../fake-data/blob/hipster.txt;2026-09-21T10:50:32;2026-09-21T11:51:12;UTILISE;faceb81d-9f1d-4695-ad75-7ccb590b196d
+4c0b8722-88ec-4f58-8850-56081c323e66;diplomate;../fake-data/blob/hipster.txt;2026-09-21T19:46:06;2026-09-21T23:12:03;ANNULE;2d54ead1-62cb-4af1-9338-637a11fda158
+af1192b8-dbf7-40a4-a3a3-d87d3eed4d6f;préserver depuis;../fake-data/blob/hipster.txt;2026-09-21T19:22:18;2026-09-22T01:12:32;ANNULE;334d8780-3321-4043-acb4-f7c4340092e2
+f5d88381-8ac0-429e-b772-42cdb05cdd10;alentour;../fake-data/blob/hipster.txt;2026-09-21T21:42:16;2026-09-21T14:41:05;EXPIRE;10df3883-7a95-4953-aa67-ce56a10cb48a
+a9605e22-3a8d-41ea-abf1-6934283a127c;de manière à ce que ralentir splendide;../fake-data/blob/hipster.txt;2026-09-21T16:32:06;2026-09-22T04:45:39;VALIDE;ef29bca6-596e-4731-853c-22818e44095d
+f264bf58-f22b-42c5-b592-5403e528a792;minuscule mourir;../fake-data/blob/hipster.txt;2026-09-22T08:46:32;2026-09-22T04:25:48;ANNULE;a5bf763c-3690-49b6-9c7c-b02a42fd4a09
+4b55d6fe-a68e-4591-a4ad-697c699b509a;à raison de touriste;../fake-data/blob/hipster.txt;2026-09-21T23:47:40;2026-09-21T19:22:25;ANNULE;e2451ed2-e5b9-4a59-b624-15e69bba7627
+1e15803b-2c5b-4652-9a8d-1f55892340bf;lorsque hi;../fake-data/blob/hipster.txt;2026-09-22T02:57:54;2026-09-21T23:05:04;VALIDE;4334e90d-c3d1-45bd-8290-1f455ddf21df
+59ea0c43-e08d-4cad-90fd-a4e4a704be86;si;../fake-data/blob/hipster.txt;2026-09-22T00:55:16;2026-09-21T11:42:09;VALIDE;9b1772eb-b078-4556-a68d-1b3c150c3833
+823082d1-8c80-4617-8b69-109270f51f3a;débattre infiniment;../fake-data/blob/hipster.txt;2026-09-22T07:44:42;2026-09-21T16:44:57;UTILISE;3862ea9e-955f-4b31-9c2a-c86e47f886d1
+19d84cf8-db59-48d7-b96b-ad47b55baa7b;concernant concernant;../fake-data/blob/hipster.txt;2026-09-22T04:34:35;2026-09-21T13:53:44;UTILISE;a7f1d645-6f09-464d-b407-565bcd0f5885
+b635661d-5d6f-4c4c-8ec7-e5763dafa29d;délégation désigner rectangulaire;../fake-data/blob/hipster.txt;2026-09-22T05:32:06;2026-09-21T11:59:11;UTILISE;b5644f54-d8dd-4a36-a224-13b83db7e420
+a1b0dad1-8fbb-4df8-9004-f553c2b94826;devant;../fake-data/blob/hipster.txt;2026-09-21T13:38:37;2026-09-21T12:00:17;UTILISE;57439d89-49d4-490d-999b-9b3ce932d2db
+4979922a-b672-4c28-8743-6ab534dd0749;ici tsoin-tsoin;../fake-data/blob/hipster.txt;2026-09-21T21:13:22;2026-09-21T18:35:39;ANNULE;c953f712-05c6-4e75-828e-7dd759dd0618
+060478d4-9be7-46b8-9d25-6b7e6d4fbd63;alentour à travers;../fake-data/blob/hipster.txt;2026-09-22T00:35:52;2026-09-22T03:44:54;UTILISE;10b3621b-c54d-4afb-8469-83a85220f40b
+296e111f-00e9-4310-ab69-582708366ccb;à défaut de gai contre;../fake-data/blob/hipster.txt;2026-09-21T10:21:04;2026-09-21T12:24:29;ANNULE;9ba1d688-e0d1-44ed-bdc7-7cb1c6ea02f3
+441d4af5-2203-42ea-8d69-c2bbb38da15f;rose;../fake-data/blob/hipster.txt;2026-09-22T02:44:42;2026-09-21T13:25:40;EXPIRE;a341b1b1-ef1f-42d6-99b0-9d980e154138
+6f1ecbc4-4e1d-47dc-983a-9ff86e01adac;en faveur de;../fake-data/blob/hipster.txt;2026-09-21T12:50:35;2026-09-21T17:27:54;VALIDE;9a250185-2d79-40d7-8c49-068fa0f91a98

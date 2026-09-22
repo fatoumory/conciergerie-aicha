@@ -1,0 +1,30 @@
+@if (idempotencyKey) {
+  <form name="deleteForm" (ngSubmit)="confirmDelete(idempotencyKey.id)">
+    <div class="modal-header">
+      <h4 class="modal-title" data-cy="idempotencyKeyDeleteDialogHeading" jhiTranslate="entity.delete.title">
+        Confirmation de suppression
+      </h4>
+    </div>
+
+    <div class="modal-body">
+      <jhi-alert-error />
+      <p
+        id="jhi-delete-idempotencyKey-heading"
+        jhiTranslate="conciergerieApp.idempotencyKey.delete.question"
+        [translateValues]="{ id: idempotencyKey.id }"
+      >
+        Êtes-vous certain de vouloir supprimer le Idempotency Key {{ idempotencyKey.id }} ?
+      </p>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="cancel()">
+        <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+      </button>
+
+      <button id="jhi-confirm-delete-idempotencyKey" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger">
+        <fa-icon icon="times" />&nbsp;<span jhiTranslate="entity.action.delete">Supprimer</span>
+      </button>
+    </div>
+  </form>
+}

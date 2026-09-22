@@ -1,0 +1,25 @@
+{
+  "conciergerieApp": {
+    "segmentClient": {
+      "home": {
+        "title": "SegmentClients",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Segment Client",
+        "createOrEditLabel": "Créer ou éditer un Segment Client",
+        "notFound": "Aucun Segment Client trouvé"
+      },
+      "created": "Un nouveau Segment Client a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Segment Client avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Segment Client avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Segment Client {{ id }} ?"
+      },
+      "detail": {
+        "title": "Segment Client"
+      },
+      "id": "Id",
+      "code": "Code",
+      "libelle": "Libelle"
+    }
+  }
+}

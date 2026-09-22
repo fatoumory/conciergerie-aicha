@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (mouvementStock(); as mouvementStockRef) {
+      <div>
+        <h2 data-cy="mouvementStockDetailsHeading">
+          <span jhiTranslate="conciergerieApp.mouvementStock.detail.title">Mouvement Stock</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="conciergerieApp.mouvementStock.id">Id</span></dt>
+          <dd>
+            <span>{{ mouvementStockRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.mouvementStock.type">Type</span></dt>
+          <dd>
+            <span [jhiTranslate]="'conciergerieApp.TypeMouvementStock.' + (mouvementStockRef.type ?? 'null')">{{
+              { null: '', CREDIT: 'CREDIT', DEBIT: 'DEBIT' }[mouvementStockRef.type ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.mouvementStock.quantite">Quantite</span></dt>
+          <dd>
+            <span>{{ mouvementStockRef.quantite }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.mouvementStock.dateTransaction">Date Transaction</span></dt>
+          <dd>
+            <span>{{ mouvementStockRef.dateTransaction | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.mouvementStock.motif">Motif</span></dt>
+          <dd>
+            <span>{{ mouvementStockRef.motif }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.mouvementStock.compteStock">Compte Stock</span></dt>
+          <dd>
+            @if (mouvementStock()!.compteStock) {
+              <div>
+                <a [routerLink]="['/compte-stock', mouvementStock()!.compteStock?.id, 'view']">{{ mouvementStockRef.compteStock?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="button" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/mouvement-stock', mouvementStockRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (codePromo(); as codePromoRef) {
+      <div>
+        <h2 data-cy="codePromoDetailsHeading"><span jhiTranslate="conciergerieApp.codePromo.detail.title">Code Promo</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="conciergerieApp.codePromo.id">Id</span></dt>
+          <dd>
+            <span>{{ codePromoRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.codePromo.code">Code</span></dt>
+          <dd>
+            <span>{{ codePromoRef.code }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.codePromo.valeur">Valeur</span></dt>
+          <dd>
+            <span>{{ codePromoRef.valeur }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.codePromo.dateDebut">Date Debut</span></dt>
+          <dd>
+            <span>{{ codePromoRef.dateDebut | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.codePromo.dateFin">Date Fin</span></dt>
+          <dd>
+            <span>{{ codePromoRef.dateFin | formatMediumDate }}</span>
+          </dd>
+        </dl>
+
+        <button type="button" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/code-promo', codePromoRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

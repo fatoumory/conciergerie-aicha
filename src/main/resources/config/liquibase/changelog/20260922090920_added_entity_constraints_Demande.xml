@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity Demande.
+    -->
+    <changeSet id="20260922090920-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="client_id"
+                                 baseTableName="demande"
+                                 constraintName="fk_demande__client_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="client"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="service_id"
+                                 baseTableName="demande"
+                                 constraintName="fk_demande__service_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="service_conciergerie"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="type_demande_id"
+                                 baseTableName="demande"
+                                 constraintName="fk_demande__type_demande_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="type_demande"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="statut_id"
+                                 baseTableName="demande"
+                                 constraintName="fk_demande__statut_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="statut_demande"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="code_promo_id"
+                                 baseTableName="demande"
+                                 constraintName="fk_demande__code_promo_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="code_promo"
+                                 />
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,28 @@
+{
+  "conciergerieApp": {
+    "journalAudit": {
+      "home": {
+        "title": "JournalAudits",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Journal Audit",
+        "createOrEditLabel": "Créer ou éditer un Journal Audit",
+        "notFound": "Aucun Journal Audit trouvé"
+      },
+      "created": "Un nouveau Journal Audit a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Journal Audit avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Journal Audit avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Journal Audit {{ id }} ?"
+      },
+      "detail": {
+        "title": "Journal Audit"
+      },
+      "id": "Id",
+      "action": "Action",
+      "typeObjet": "Type Objet",
+      "objetId": "Objet Id",
+      "correlationId": "Correlation Id",
+      "dateAction": "Date Action"
+    }
+  }
+}

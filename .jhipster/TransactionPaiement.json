@@ -1,0 +1,55 @@
+{
+  "annotations": {
+    "changelogDate": "20260922090928"
+  },
+  "applications": ["*"],
+  "documentation": "Tentative de paiement d'une demande (Transaction dans le document).",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "montant",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "modePaiement",
+      "fieldType": "ModePaiement",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "ORANGE_MONEY"
+    },
+    {
+      "fieldName": "statut",
+      "fieldType": "StatutTransaction",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "EN_ATTENTE,SUCCES,FAILED,ANNULE"
+    },
+    {
+      "fieldName": "referenceExterne",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dateTransaction",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "TransactionPaiement",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "demande",
+      "relationshipName": "demande",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

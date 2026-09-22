@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (utilisationCodeQr(); as utilisationCodeQrRef) {
+      <div>
+        <h2 data-cy="utilisationCodeQrDetailsHeading">
+          <span jhiTranslate="conciergerieApp.utilisationCodeQr.detail.title">Utilisation Code Qr</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="conciergerieApp.utilisationCodeQr.id">Id</span></dt>
+          <dd>
+            <span>{{ utilisationCodeQrRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.utilisationCodeQr.dateUtilisation">Date Utilisation</span></dt>
+          <dd>
+            <span>{{ utilisationCodeQrRef.dateUtilisation | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.utilisationCodeQr.codeQrService">Code Qr Service</span></dt>
+          <dd>
+            @if (utilisationCodeQr()!.codeQrService) {
+              <div>
+                <a [routerLink]="['/code-qr-service', utilisationCodeQr()!.codeQrService?.id, 'view']">{{
+                  utilisationCodeQrRef.codeQrService?.code
+                }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.utilisationCodeQr.partenaire">Partenaire</span></dt>
+          <dd>
+            @if (utilisationCodeQr()!.partenaire) {
+              <div>
+                <a [routerLink]="['/partenaire', utilisationCodeQr()!.partenaire?.id, 'view']">{{
+                  utilisationCodeQrRef.partenaire?.libelle
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="button" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/utilisation-code-qr', utilisationCodeQrRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

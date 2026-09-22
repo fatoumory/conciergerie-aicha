@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (codeQrService(); as codeQrServiceRef) {
+      <div>
+        <h2 data-cy="codeQrServiceDetailsHeading">
+          <span jhiTranslate="conciergerieApp.codeQrService.detail.title">Code Qr Service</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="conciergerieApp.codeQrService.id">Id</span></dt>
+          <dd>
+            <span>{{ codeQrServiceRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.codeQrService.code">Code</span></dt>
+          <dd>
+            <span>{{ codeQrServiceRef.code }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.codeQrService.qrCode">Qr Code</span></dt>
+          <dd>
+            <span>{{ codeQrServiceRef.qrCode }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.codeQrService.dateGeneration">Date Generation</span></dt>
+          <dd>
+            <span>{{ codeQrServiceRef.dateGeneration | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.codeQrService.dateExpiration">Date Expiration</span></dt>
+          <dd>
+            <span>{{ codeQrServiceRef.dateExpiration | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.codeQrService.statut">Statut</span></dt>
+          <dd>
+            <span [jhiTranslate]="'conciergerieApp.StatutCodeQr.' + (codeQrServiceRef.statut ?? 'null')">{{
+              { null: '', VALIDE: 'VALIDE', UTILISE: 'UTILISE', EXPIRE: 'EXPIRE', ANNULE: 'ANNULE' }[codeQrServiceRef.statut ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.codeQrService.demande">Demande</span></dt>
+          <dd>
+            @if (codeQrService()!.demande) {
+              <div>
+                <a [routerLink]="['/demande', codeQrService()!.demande?.id, 'view']">{{ codeQrServiceRef.demande?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="button" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/code-qr-service', codeQrServiceRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

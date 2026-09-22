@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (compteStock(); as compteStockRef) {
+      <div>
+        <h2 data-cy="compteStockDetailsHeading"><span jhiTranslate="conciergerieApp.compteStock.detail.title">Compte Stock</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="conciergerieApp.compteStock.id">Id</span></dt>
+          <dd>
+            <span>{{ compteStockRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.compteStock.solde">Solde</span></dt>
+          <dd>
+            <span>{{ compteStockRef.solde }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.compteStock.service">Service</span></dt>
+          <dd>
+            @if (compteStock()!.service) {
+              <div>
+                <a [routerLink]="['/service-conciergerie', compteStock()!.service?.id, 'view']">{{ compteStockRef.service?.libelle }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="button" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/compte-stock', compteStockRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (client(); as clientRef) {
+      <div>
+        <h2 data-cy="clientDetailsHeading"><span jhiTranslate="conciergerieApp.client.detail.title">Client</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="conciergerieApp.client.id">Id</span></dt>
+          <dd>
+            <span>{{ clientRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.client.numero">Numero</span></dt>
+          <dd>
+            <span>{{ clientRef.numero }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.client.prenom">Prenom</span></dt>
+          <dd>
+            <span>{{ clientRef.prenom }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.client.nom">Nom</span></dt>
+          <dd>
+            <span>{{ clientRef.nom }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.client.email">Email</span></dt>
+          <dd>
+            <span>{{ clientRef.email }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.client.user">User</span></dt>
+          <dd>
+            <span>{{ clientRef.user?.login }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.client.typeClient">Type Client</span></dt>
+          <dd>
+            @if (client()!.typeClient) {
+              <div>
+                <a [routerLink]="['/type-client', client()!.typeClient?.id, 'view']">{{ clientRef.typeClient?.libelle }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.client.segmentClient">Segment Client</span></dt>
+          <dd>
+            @if (client()!.segmentClient) {
+              <div>
+                <a [routerLink]="['/segment-client', client()!.segmentClient?.id, 'view']">{{ clientRef.segmentClient?.libelle }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="button" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/client', clientRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

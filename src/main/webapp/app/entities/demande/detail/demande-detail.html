@@ -1,0 +1,78 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (demande(); as demandeRef) {
+      <div>
+        <h2 data-cy="demandeDetailsHeading"><span jhiTranslate="conciergerieApp.demande.detail.title">Demande</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="conciergerieApp.demande.id">Id</span></dt>
+          <dd>
+            <span>{{ demandeRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.demande.dateCreation">Date Creation</span></dt>
+          <dd>
+            <span>{{ demandeRef.dateCreation | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.demande.description">Description</span></dt>
+          <dd>
+            <span>{{ demandeRef.description }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.demande.client">Client</span></dt>
+          <dd>
+            @if (demande()!.client) {
+              <div>
+                <a [routerLink]="['/client', demande()!.client?.id, 'view']">{{ demandeRef.client?.numero }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.demande.service">Service</span></dt>
+          <dd>
+            @if (demande()!.service) {
+              <div>
+                <a [routerLink]="['/service-conciergerie', demande()!.service?.id, 'view']">{{ demandeRef.service?.libelle }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.demande.typeDemande">Type Demande</span></dt>
+          <dd>
+            @if (demande()!.typeDemande) {
+              <div>
+                <a [routerLink]="['/type-demande', demande()!.typeDemande?.id, 'view']">{{ demandeRef.typeDemande?.libelle }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.demande.statut">Statut</span></dt>
+          <dd>
+            @if (demande()!.statut) {
+              <div>
+                <a [routerLink]="['/statut-demande', demande()!.statut?.id, 'view']">{{ demandeRef.statut?.libelle }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.demande.codePromo">Code Promo</span></dt>
+          <dd>
+            @if (demande()!.codePromo) {
+              <div>
+                <a [routerLink]="['/code-promo', demande()!.codePromo?.id, 'view']">{{ demandeRef.codePromo?.code }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="button" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/demande', demandeRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

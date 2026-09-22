@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity Profil.
+    -->
+    <changeSet id="20260922090904-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="profil_id"
+                                 baseTableName="rel_profil__utilisateur"
+                                 constraintName="fk_rel_profil__utilisateur__profil_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="profil"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="utilisateur_id"
+                                 baseTableName="rel_profil__utilisateur"
+                                 constraintName="fk_rel_profil__utilisateur__utilisateur_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="profil_id"
+                                 baseTableName="rel_profil__role"
+                                 constraintName="fk_rel_profil__role__profil_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="profil"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="role_name"
+                                 baseTableName="rel_profil__role"
+                                 constraintName="fk_rel_profil__role__role_id"
+                                 referencedColumnNames="name"
+                                 referencedTableName="jhi_authority"
+                                 />
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,28 @@
+{
+  "conciergerieApp": {
+    "consommationQuota": {
+      "home": {
+        "title": "ConsommationQuotas",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Consommation Quota",
+        "createOrEditLabel": "Créer ou éditer un Consommation Quota",
+        "notFound": "Aucun Consommation Quota trouvé"
+      },
+      "created": "Un nouveau Consommation Quota a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Consommation Quota avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Consommation Quota avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Consommation Quota {{ id }} ?"
+      },
+      "detail": {
+        "title": "Consommation Quota"
+      },
+      "id": "Id",
+      "quantite": "Quantite",
+      "dateConsommation": "Date Consommation",
+      "client": "Client",
+      "quotaService": "Quota Service",
+      "quotaDetail": "Quota Detail"
+    }
+  }
+}

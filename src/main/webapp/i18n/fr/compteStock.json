@@ -1,0 +1,25 @@
+{
+  "conciergerieApp": {
+    "compteStock": {
+      "home": {
+        "title": "CompteStocks",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Compte Stock",
+        "createOrEditLabel": "Créer ou éditer un Compte Stock",
+        "notFound": "Aucun Compte Stock trouvé"
+      },
+      "created": "Un nouveau Compte Stock a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Compte Stock avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Compte Stock avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Compte Stock {{ id }} ?"
+      },
+      "detail": {
+        "title": "Compte Stock"
+      },
+      "id": "Id",
+      "solde": "Solde",
+      "service": "Service"
+    }
+  }
+}

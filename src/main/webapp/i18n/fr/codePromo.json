@@ -1,0 +1,27 @@
+{
+  "conciergerieApp": {
+    "codePromo": {
+      "home": {
+        "title": "CodePromos",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Code Promo",
+        "createOrEditLabel": "Créer ou éditer un Code Promo",
+        "notFound": "Aucun Code Promo trouvé"
+      },
+      "created": "Un nouveau Code Promo a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Code Promo avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Code Promo avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Code Promo {{ id }} ?"
+      },
+      "detail": {
+        "title": "Code Promo"
+      },
+      "id": "Id",
+      "code": "Code",
+      "valeur": "Valeur",
+      "dateDebut": "Date Debut",
+      "dateFin": "Date Fin"
+    }
+  }
+}

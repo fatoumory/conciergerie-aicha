@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (prestation(); as prestationRef) {
+      <div>
+        <h2 data-cy="prestationDetailsHeading"><span jhiTranslate="conciergerieApp.prestation.detail.title">Prestation</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="conciergerieApp.prestation.id">Id</span></dt>
+          <dd>
+            <span>{{ prestationRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.prestation.dateDebut">Date Debut</span></dt>
+          <dd>
+            <span>{{ prestationRef.dateDebut | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.prestation.dateFin">Date Fin</span></dt>
+          <dd>
+            <span>{{ prestationRef.dateFin | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.prestation.demande">Demande</span></dt>
+          <dd>
+            @if (prestation()!.demande) {
+              <div>
+                <a [routerLink]="['/demande', prestation()!.demande?.id, 'view']">{{ prestationRef.demande?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.prestation.partenaire">Partenaire</span></dt>
+          <dd>
+            @if (prestation()!.partenaire) {
+              <div>
+                <a [routerLink]="['/partenaire', prestation()!.partenaire?.id, 'view']">{{ prestationRef.partenaire?.libelle }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="button" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/prestation', prestationRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (consommationQuota(); as consommationQuotaRef) {
+      <div>
+        <h2 data-cy="consommationQuotaDetailsHeading">
+          <span jhiTranslate="conciergerieApp.consommationQuota.detail.title">Consommation Quota</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="conciergerieApp.consommationQuota.id">Id</span></dt>
+          <dd>
+            <span>{{ consommationQuotaRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.consommationQuota.quantite">Quantite</span></dt>
+          <dd>
+            <span>{{ consommationQuotaRef.quantite }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.consommationQuota.dateConsommation">Date Consommation</span></dt>
+          <dd>
+            <span>{{ consommationQuotaRef.dateConsommation | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.consommationQuota.client">Client</span></dt>
+          <dd>
+            @if (consommationQuota()!.client) {
+              <div>
+                <a [routerLink]="['/client', consommationQuota()!.client?.id, 'view']">{{ consommationQuotaRef.client?.numero }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.consommationQuota.quotaService">Quota Service</span></dt>
+          <dd>
+            @if (consommationQuota()!.quotaService) {
+              <div>
+                <a [routerLink]="['/quota-service', consommationQuota()!.quotaService?.id, 'view']">{{
+                  consommationQuotaRef.quotaService?.id
+                }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.consommationQuota.quotaDetail">Quota Detail</span></dt>
+          <dd>
+            @if (consommationQuota()!.quotaDetail) {
+              <div>
+                <a [routerLink]="['/quota-detail', consommationQuota()!.quotaDetail?.id, 'view']">{{
+                  consommationQuotaRef.quotaDetail?.id
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="button" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/consommation-quota', consommationQuotaRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

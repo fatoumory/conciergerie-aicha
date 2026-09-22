@@ -1,0 +1,197 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-eligibilite-service-heading"
+        data-cy="EligibiliteServiceCreateUpdateHeading"
+        jhiTranslate="conciergerieApp.eligibiliteService.home.createOrEditLabel"
+      >
+        Créer ou éditer un Eligibilite Service
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="conciergerieApp.eligibiliteService.id">Id</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let autoriseRef = editForm.get('autorise')!;
+        <div class="mb-3 form-check">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            name="autorise"
+            id="field_autorise"
+            data-cy="autorise"
+            formControlName="autorise"
+          />
+          <label class="form-check-label" for="field_autorise" jhiTranslate="conciergerieApp.eligibiliteService.autorise">Autorise</label>
+          @if (autoriseRef.invalid && (autoriseRef.dirty || autoriseRef.touched)) {
+            <div>
+              @if (autoriseRef.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let gratuitRef = editForm.get('gratuit')!;
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" name="gratuit" id="field_gratuit" data-cy="gratuit" formControlName="gratuit" />
+          <label class="form-check-label" for="field_gratuit" jhiTranslate="conciergerieApp.eligibiliteService.gratuit">Gratuit</label>
+          @if (gratuitRef.invalid && (gratuitRef.dirty || gratuitRef.touched)) {
+            <div>
+              @if (gratuitRef.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let dateDebutRef = editForm.get('dateDebut')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_dateDebut" jhiTranslate="conciergerieApp.eligibiliteService.dateDebut">Date Debut</label>
+          <div class="input-group">
+            <input
+              id="field_dateDebut"
+              data-cy="dateDebut"
+              type="text"
+              class="form-control"
+              name="dateDebut"
+              ngbDatepicker
+              #dateDebutDp="ngbDatepicker"
+              formControlName="dateDebut"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateDebutDp.toggle()"><fa-icon icon="calendar-alt" /></button>
+          </div>
+          @if (dateDebutRef.invalid && (dateDebutRef.dirty || dateDebutRef.touched)) {
+            <div>
+              @if (dateDebutRef.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_dateFin" jhiTranslate="conciergerieApp.eligibiliteService.dateFin">Date Fin</label>
+          <div class="input-group">
+            <input
+              id="field_dateFin"
+              data-cy="dateFin"
+              type="text"
+              class="form-control"
+              name="dateFin"
+              ngbDatepicker
+              #dateFinDp="ngbDatepicker"
+              formControlName="dateFin"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateFinDp.toggle()"><fa-icon icon="calendar-alt" /></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_service" jhiTranslate="conciergerieApp.eligibiliteService.service">Service</label>
+          <select
+            class="form-select"
+            id="field_service"
+            data-cy="service"
+            name="service"
+            formControlName="service"
+            [compareWith]="compareServiceConciergerie"
+          >
+            @if (!editForm.get('service')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (serviceConciergerieOption of serviceConciergeriesSharedCollection(); track $index) {
+              <option [ngValue]="serviceConciergerieOption">{{ serviceConciergerieOption.libelle }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['service'])!.invalid && (editForm.get(['service'])!.dirty || editForm.get(['service'])!.touched)) {
+          <div>
+            @if (editForm.get(['service'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_segmentClient" jhiTranslate="conciergerieApp.eligibiliteService.segmentClient"
+            >Segment Client</label
+          >
+          <select
+            class="form-select"
+            id="field_segmentClient"
+            data-cy="segmentClient"
+            name="segmentClient"
+            formControlName="segmentClient"
+            [compareWith]="compareSegmentClient"
+          >
+            @if (!editForm.get('segmentClient')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (segmentClientOption of segmentClientsSharedCollection(); track $index) {
+              <option [ngValue]="segmentClientOption">{{ segmentClientOption.libelle }}</option>
+            }
+          </select>
+        </div>
+        @if (
+          editForm.get(['segmentClient'])!.invalid && (editForm.get(['segmentClient'])!.dirty || editForm.get(['segmentClient'])!.touched)
+        ) {
+          <div>
+            @if (editForm.get(['segmentClient'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_typeClient" jhiTranslate="conciergerieApp.eligibiliteService.typeClient">Type Client</label>
+          <select
+            class="form-select"
+            id="field_typeClient"
+            data-cy="typeClient"
+            name="typeClient"
+            formControlName="typeClient"
+            [compareWith]="compareTypeClient"
+          >
+            @if (!editForm.get('typeClient')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (typeClientOption of typeClientsSharedCollection(); track $index) {
+              <option [ngValue]="typeClientOption">{{ typeClientOption.libelle }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['typeClient'])!.invalid && (editForm.get(['typeClient'])!.dirty || editForm.get(['typeClient'])!.touched)) {
+          <div>
+            @if (editForm.get(['typeClient'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

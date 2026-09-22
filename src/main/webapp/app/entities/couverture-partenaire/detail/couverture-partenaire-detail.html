@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (couverturePartenaire(); as couverturePartenaireRef) {
+      <div>
+        <h2 data-cy="couverturePartenaireDetailsHeading">
+          <span jhiTranslate="conciergerieApp.couverturePartenaire.detail.title">Couverture Partenaire</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="conciergerieApp.couverturePartenaire.id">Id</span></dt>
+          <dd>
+            <span>{{ couverturePartenaireRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.couverturePartenaire.dateDebut">Date Debut</span></dt>
+          <dd>
+            <span>{{ couverturePartenaireRef.dateDebut | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.couverturePartenaire.dateFin">Date Fin</span></dt>
+          <dd>
+            <span>{{ couverturePartenaireRef.dateFin | formatMediumDate }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.couverturePartenaire.partenaire">Partenaire</span></dt>
+          <dd>
+            @if (couverturePartenaire()!.partenaire) {
+              <div>
+                <a [routerLink]="['/partenaire', couverturePartenaire()!.partenaire?.id, 'view']">{{
+                  couverturePartenaireRef.partenaire?.libelle
+                }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.couverturePartenaire.service">Service</span></dt>
+          <dd>
+            @if (couverturePartenaire()!.service) {
+              <div>
+                <a [routerLink]="['/service-conciergerie', couverturePartenaire()!.service?.id, 'view']">{{
+                  couverturePartenaireRef.service?.libelle
+                }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="button" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/couverture-partenaire', couverturePartenaireRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

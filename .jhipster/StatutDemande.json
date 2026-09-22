@@ -1,0 +1,28 @@
+{
+  "annotations": {
+    "changelogDate": "20260922090922"
+  },
+  "applications": ["*"],
+  "documentation": "État d'une demande.",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "code",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "libelle",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "StatutDemande",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

@@ -1,0 +1,198 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-demande-heading" data-cy="DemandeCreateUpdateHeading" jhiTranslate="conciergerieApp.demande.home.createOrEditLabel">
+        Créer ou éditer un Demande
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="conciergerieApp.demande.id">Id</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let dateCreationRef = editForm.get('dateCreation')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_dateCreation" jhiTranslate="conciergerieApp.demande.dateCreation">Date Creation</label>
+          <div class="d-flex">
+            <input
+              id="field_dateCreation"
+              data-cy="dateCreation"
+              type="datetime-local"
+              class="form-control"
+              name="dateCreation"
+              formControlName="dateCreation"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          @if (dateCreationRef.invalid && (dateCreationRef.dirty || dateCreationRef.touched)) {
+            <div>
+              @if (dateCreationRef.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!dateCreationRef.errors?.datetimelocal"
+                jhiTranslate="entity.validation.datetimelocal"
+                >Ce champ doit être une date et une heure.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_description" jhiTranslate="conciergerieApp.demande.description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_client" jhiTranslate="conciergerieApp.demande.client">Client</label>
+          <select
+            class="form-select"
+            id="field_client"
+            data-cy="client"
+            name="client"
+            formControlName="client"
+            [compareWith]="compareClient"
+          >
+            @if (!editForm.get('client')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (clientOption of clientsSharedCollection(); track $index) {
+              <option [ngValue]="clientOption">{{ clientOption.numero }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['client'])!.invalid && (editForm.get(['client'])!.dirty || editForm.get(['client'])!.touched)) {
+          <div>
+            @if (editForm.get(['client'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_service" jhiTranslate="conciergerieApp.demande.service">Service</label>
+          <select
+            class="form-select"
+            id="field_service"
+            data-cy="service"
+            name="service"
+            formControlName="service"
+            [compareWith]="compareServiceConciergerie"
+          >
+            @if (!editForm.get('service')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (serviceConciergerieOption of serviceConciergeriesSharedCollection(); track $index) {
+              <option [ngValue]="serviceConciergerieOption">{{ serviceConciergerieOption.libelle }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['service'])!.invalid && (editForm.get(['service'])!.dirty || editForm.get(['service'])!.touched)) {
+          <div>
+            @if (editForm.get(['service'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_typeDemande" jhiTranslate="conciergerieApp.demande.typeDemande">Type Demande</label>
+          <select
+            class="form-select"
+            id="field_typeDemande"
+            data-cy="typeDemande"
+            name="typeDemande"
+            formControlName="typeDemande"
+            [compareWith]="compareTypeDemande"
+          >
+            @if (!editForm.get('typeDemande')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (typeDemandeOption of typeDemandesSharedCollection(); track $index) {
+              <option [ngValue]="typeDemandeOption">{{ typeDemandeOption.libelle }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['typeDemande'])!.invalid && (editForm.get(['typeDemande'])!.dirty || editForm.get(['typeDemande'])!.touched)) {
+          <div>
+            @if (editForm.get(['typeDemande'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_statut" jhiTranslate="conciergerieApp.demande.statut">Statut</label>
+          <select
+            class="form-select"
+            id="field_statut"
+            data-cy="statut"
+            name="statut"
+            formControlName="statut"
+            [compareWith]="compareStatutDemande"
+          >
+            @if (!editForm.get('statut')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (statutDemandeOption of statutDemandesSharedCollection(); track $index) {
+              <option [ngValue]="statutDemandeOption">{{ statutDemandeOption.libelle }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['statut'])!.invalid && (editForm.get(['statut'])!.dirty || editForm.get(['statut'])!.touched)) {
+          <div>
+            @if (editForm.get(['statut'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_codePromo" jhiTranslate="conciergerieApp.demande.codePromo">Code Promo</label>
+          <select
+            class="form-select"
+            id="field_codePromo"
+            data-cy="codePromo"
+            name="codePromo"
+            formControlName="codePromo"
+            [compareWith]="compareCodePromo"
+          >
+            <option [ngValue]="null"></option>
+            @for (codePromoOption of codePromosSharedCollection(); track $index) {
+              <option [ngValue]="codePromoOption">{{ codePromoOption.code }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

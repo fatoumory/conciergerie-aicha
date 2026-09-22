@@ -1,0 +1,26 @@
+{
+  "conciergerieApp": {
+    "utilisationCodeQr": {
+      "home": {
+        "title": "UtilisationCodeQrs",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Utilisation Code Qr",
+        "createOrEditLabel": "Créer ou éditer un Utilisation Code Qr",
+        "notFound": "Aucun Utilisation Code Qr trouvé"
+      },
+      "created": "Un nouveau Utilisation Code Qr a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Utilisation Code Qr avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Utilisation Code Qr avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Utilisation Code Qr {{ id }} ?"
+      },
+      "detail": {
+        "title": "Utilisation Code Qr"
+      },
+      "id": "Id",
+      "dateUtilisation": "Date Utilisation",
+      "codeQrService": "Code Qr Service",
+      "partenaire": "Partenaire"
+    }
+  }
+}

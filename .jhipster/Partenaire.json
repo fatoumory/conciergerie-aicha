@@ -1,0 +1,28 @@
+{
+  "annotations": {
+    "changelogDate": "20260922090914"
+  },
+  "applications": ["*"],
+  "documentation": "Prestataire chargé de fournir des services.",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "code",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "libelle",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "Partenaire",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

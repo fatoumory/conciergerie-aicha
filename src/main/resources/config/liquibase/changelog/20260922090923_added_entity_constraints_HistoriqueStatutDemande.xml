@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity HistoriqueStatutDemande.
+    -->
+    <changeSet id="20260922090923-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="demande_id"
+                                 baseTableName="historique_statut_demande"
+                                 constraintName="fk_historique_statut_demande__demande_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="demande"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="statut_id"
+                                 baseTableName="historique_statut_demande"
+                                 constraintName="fk_historique_statut_demande__statut_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="statut_demande"
+                                 />
+    </changeSet>
+</databaseChangeLog>

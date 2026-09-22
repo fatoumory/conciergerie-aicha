@@ -1,0 +1,29 @@
+{
+  "conciergerieApp": {
+    "transactionPaiement": {
+      "home": {
+        "title": "Transaction Paiements",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Transaction Paiement",
+        "createOrEditLabel": "Create or edit a Transaction Paiement",
+        "notFound": "No Transaction Paiements found"
+      },
+      "created": "A new Transaction Paiement is created with identifier {{ param }}",
+      "updated": "A Transaction Paiement is updated with identifier {{ param }}",
+      "deleted": "A Transaction Paiement is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Transaction Paiement {{ id }}?"
+      },
+      "detail": {
+        "title": "Transaction Paiement"
+      },
+      "id": "Id",
+      "montant": "Montant",
+      "modePaiement": "Mode Paiement",
+      "statut": "Statut",
+      "referenceExterne": "Reference Externe",
+      "dateTransaction": "Date Transaction",
+      "demande": "Demande"
+    }
+  }
+}

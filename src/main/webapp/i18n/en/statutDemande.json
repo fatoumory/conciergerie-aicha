@@ -1,0 +1,25 @@
+{
+  "conciergerieApp": {
+    "statutDemande": {
+      "home": {
+        "title": "Statut Demandes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Statut Demande",
+        "createOrEditLabel": "Create or edit a Statut Demande",
+        "notFound": "No Statut Demandes found"
+      },
+      "created": "A new Statut Demande is created with identifier {{ param }}",
+      "updated": "A Statut Demande is updated with identifier {{ param }}",
+      "deleted": "A Statut Demande is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Statut Demande {{ id }}?"
+      },
+      "detail": {
+        "title": "Statut Demande"
+      },
+      "id": "Id",
+      "code": "Code",
+      "libelle": "Libelle"
+    }
+  }
+}

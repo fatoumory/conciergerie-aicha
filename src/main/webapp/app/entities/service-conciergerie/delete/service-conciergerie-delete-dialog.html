@@ -1,0 +1,30 @@
+@if (serviceConciergerie) {
+  <form name="deleteForm" (ngSubmit)="confirmDelete(serviceConciergerie.id)">
+    <div class="modal-header">
+      <h4 class="modal-title" data-cy="serviceConciergerieDeleteDialogHeading" jhiTranslate="entity.delete.title">
+        Confirmation de suppression
+      </h4>
+    </div>
+
+    <div class="modal-body">
+      <jhi-alert-error />
+      <p
+        id="jhi-delete-serviceConciergerie-heading"
+        jhiTranslate="conciergerieApp.serviceConciergerie.delete.question"
+        [translateValues]="{ id: serviceConciergerie.id }"
+      >
+        Êtes-vous certain de vouloir supprimer le Service Conciergerie {{ serviceConciergerie.id }} ?
+      </p>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="cancel()">
+        <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+      </button>
+
+      <button id="jhi-confirm-delete-serviceConciergerie" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger">
+        <fa-icon icon="times" />&nbsp;<span jhiTranslate="entity.action.delete">Supprimer</span>
+      </button>
+    </div>
+  </form>
+}

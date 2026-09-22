@@ -1,0 +1,170 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-quota-service-heading"
+        data-cy="QuotaServiceCreateUpdateHeading"
+        jhiTranslate="conciergerieApp.quotaService.home.createOrEditLabel"
+      >
+        Créer ou éditer un Quota Service
+      </h2>
+
+      <div>
+        <jhi-alert-error />
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="conciergerieApp.quotaService.id">Id</label>
+            <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let limiteRef = editForm.get('limite')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_limite" jhiTranslate="conciergerieApp.quotaService.limite">Limite</label>
+          <input type="number" class="form-control" name="limite" id="field_limite" data-cy="limite" formControlName="limite" />
+          @if (limiteRef.invalid && (limiteRef.dirty || limiteRef.touched)) {
+            <div>
+              @if (limiteRef.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+              @if (limiteRef.errors?.min) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.min" [translateValues]="{ min: '0' }"
+                  >Ce champ doit être supérieur à 0.</small
+                >
+              }
+              <small class="form-text text-danger" [hidden]="!limiteRef.errors?.number" jhiTranslate="entity.validation.number"
+                >Ce champ doit être un nombre.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let uniteRef = editForm.get('unite')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_unite" jhiTranslate="conciergerieApp.quotaService.unite">Unite</label>
+          <select class="form-select" name="unite" formControlName="unite" id="field_unite" data-cy="unite">
+            <option [ngValue]="null">{{ 'conciergerieApp.UniteQuota.null' | translate }}</option>
+            @for (uniteQuota of uniteQuotaValues; track $index) {
+              <option [value]="uniteQuota">{{ 'conciergerieApp.UniteQuota.' + uniteQuota | translate }}</option>
+            }
+          </select>
+          @if (uniteRef.invalid && (uniteRef.dirty || uniteRef.touched)) {
+            <div>
+              @if (uniteRef.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let periodeRef = editForm.get('periode')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_periode" jhiTranslate="conciergerieApp.quotaService.periode">Periode</label>
+          <select class="form-select" name="periode" formControlName="periode" id="field_periode" data-cy="periode">
+            <option [ngValue]="null">{{ 'conciergerieApp.PeriodeQuota.null' | translate }}</option>
+            @for (periodeQuota of periodeQuotaValues; track $index) {
+              <option [value]="periodeQuota">{{ 'conciergerieApp.PeriodeQuota.' + periodeQuota | translate }}</option>
+            }
+          </select>
+          @if (periodeRef.invalid && (periodeRef.dirty || periodeRef.touched)) {
+            <div>
+              @if (periodeRef.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let dateDebutRef = editForm.get('dateDebut')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_dateDebut" jhiTranslate="conciergerieApp.quotaService.dateDebut">Date Debut</label>
+          <div class="input-group">
+            <input
+              id="field_dateDebut"
+              data-cy="dateDebut"
+              type="text"
+              class="form-control"
+              name="dateDebut"
+              ngbDatepicker
+              #dateDebutDp="ngbDatepicker"
+              formControlName="dateDebut"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateDebutDp.toggle()"><fa-icon icon="calendar-alt" /></button>
+          </div>
+          @if (dateDebutRef.invalid && (dateDebutRef.dirty || dateDebutRef.touched)) {
+            <div>
+              @if (dateDebutRef.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_dateFin" jhiTranslate="conciergerieApp.quotaService.dateFin">Date Fin</label>
+          <div class="input-group">
+            <input
+              id="field_dateFin"
+              data-cy="dateFin"
+              type="text"
+              class="form-control"
+              name="dateFin"
+              ngbDatepicker
+              #dateFinDp="ngbDatepicker"
+              formControlName="dateFin"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateFinDp.toggle()"><fa-icon icon="calendar-alt" /></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_eligibiliteService" jhiTranslate="conciergerieApp.quotaService.eligibiliteService"
+            >Eligibilite Service</label
+          >
+          <select
+            class="form-select"
+            id="field_eligibiliteService"
+            data-cy="eligibiliteService"
+            name="eligibiliteService"
+            formControlName="eligibiliteService"
+            [compareWith]="compareEligibiliteService"
+          >
+            @if (!editForm.get('eligibiliteService')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (eligibiliteServiceOption of eligibiliteServicesSharedCollection(); track $index) {
+              <option [ngValue]="eligibiliteServiceOption">{{ eligibiliteServiceOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (
+          editForm.get(['eligibiliteService'])!.invalid &&
+          (editForm.get(['eligibiliteService'])!.dirty || editForm.get(['eligibiliteService'])!.touched)
+        ) {
+          <div>
+            @if (editForm.get(['eligibiliteService'])?.errors?.required) {
+              <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban" />&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving()"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save" />&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

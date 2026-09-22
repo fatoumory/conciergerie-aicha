@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (typeDemande(); as typeDemandeRef) {
+      <div>
+        <h2 data-cy="typeDemandeDetailsHeading"><span jhiTranslate="conciergerieApp.typeDemande.detail.title">Type Demande</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="conciergerieApp.typeDemande.id">Id</span></dt>
+          <dd>
+            <span>{{ typeDemandeRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.typeDemande.code">Code</span></dt>
+          <dd>
+            <span>{{ typeDemandeRef.code }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.typeDemande.libelle">Libelle</span></dt>
+          <dd>
+            <span>{{ typeDemandeRef.libelle }}</span>
+          </dd>
+        </dl>
+
+        <button type="button" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/type-demande', typeDemandeRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

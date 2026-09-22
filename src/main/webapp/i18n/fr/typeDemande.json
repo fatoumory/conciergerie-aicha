@@ -1,0 +1,25 @@
+{
+  "conciergerieApp": {
+    "typeDemande": {
+      "home": {
+        "title": "TypeDemandes",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Type Demande",
+        "createOrEditLabel": "Créer ou éditer un Type Demande",
+        "notFound": "Aucun Type Demande trouvé"
+      },
+      "created": "Un nouveau Type Demande a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Type Demande avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Type Demande avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Type Demande {{ id }} ?"
+      },
+      "detail": {
+        "title": "Type Demande"
+      },
+      "id": "Id",
+      "code": "Code",
+      "libelle": "Libelle"
+    }
+  }
+}

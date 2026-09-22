@@ -1,0 +1,66 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (transactionPaiement(); as transactionPaiementRef) {
+      <div>
+        <h2 data-cy="transactionPaiementDetailsHeading">
+          <span jhiTranslate="conciergerieApp.transactionPaiement.detail.title">Transaction Paiement</span>
+        </h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="conciergerieApp.transactionPaiement.id">Id</span></dt>
+          <dd>
+            <span>{{ transactionPaiementRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.transactionPaiement.montant">Montant</span></dt>
+          <dd>
+            <span>{{ transactionPaiementRef.montant }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.transactionPaiement.modePaiement">Mode Paiement</span></dt>
+          <dd>
+            <span [jhiTranslate]="'conciergerieApp.ModePaiement.' + (transactionPaiementRef.modePaiement ?? 'null')">{{
+              { null: '', ORANGE_MONEY: 'ORANGE_MONEY' }[transactionPaiementRef.modePaiement ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.transactionPaiement.statut">Statut</span></dt>
+          <dd>
+            <span [jhiTranslate]="'conciergerieApp.StatutTransaction.' + (transactionPaiementRef.statut ?? 'null')">{{
+              { null: '', EN_ATTENTE: 'EN_ATTENTE', SUCCES: 'SUCCES', FAILED: 'FAILED', ANNULE: 'ANNULE' }[
+                transactionPaiementRef.statut ?? 'null'
+              ]
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.transactionPaiement.referenceExterne">Reference Externe</span></dt>
+          <dd>
+            <span>{{ transactionPaiementRef.referenceExterne }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.transactionPaiement.dateTransaction">Date Transaction</span></dt>
+          <dd>
+            <span>{{ transactionPaiementRef.dateTransaction | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.transactionPaiement.demande">Demande</span></dt>
+          <dd>
+            @if (transactionPaiement()!.demande) {
+              <div>
+                <a [routerLink]="['/demande', transactionPaiement()!.demande?.id, 'view']">{{ transactionPaiementRef.demande?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="button" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/transaction-paiement', transactionPaiementRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

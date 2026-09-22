@@ -1,0 +1,9 @@
+{
+  "conciergerieApp": {
+    "TypeMouvementStock": {
+      "null": "",
+      "CREDIT": "CREDIT",
+      "DEBIT": "DEBIT"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (typeService(); as typeServiceRef) {
+      <div>
+        <h2 data-cy="typeServiceDetailsHeading"><span jhiTranslate="conciergerieApp.typeService.detail.title">Type Service</span></h2>
+
+        <hr />
+
+        <jhi-alert-error />
+
+        <jhi-alert />
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="conciergerieApp.typeService.id">Id</span></dt>
+          <dd>
+            <span>{{ typeServiceRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.typeService.code">Code</span></dt>
+          <dd>
+            <span>{{ typeServiceRef.code }}</span>
+          </dd>
+          <dt><span jhiTranslate="conciergerieApp.typeService.libelle">Libelle</span></dt>
+          <dd>
+            <span>{{ typeServiceRef.libelle }}</span>
+          </dd>
+        </dl>
+
+        <button type="button" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left" />&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/type-service', typeServiceRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt" />&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>
