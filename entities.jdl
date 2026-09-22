@@ -1,0 +1,419 @@
+/*
+ * Adaptations:
+ *  - Utilisateur        -> User de JHipster (builtInEntity), non recréé
+ *  - Role               -> Authority de JHipster (builtInEntity), non recréé
+ *  - UtilisateurProfil  -> relation ManyToMany Profil <-> User
+ *  - ProfilRole         -> relation ManyToMany Profil <-> Authority
+ *  - Service            -> ServiceConciergerie (évite le conflit avec l'annotation Spring @Service)
+ *  - Account            -> CompteStock ("ACCOUNT" est un mot réservé JHipster : /api/account)
+ *  - TransactionAccount -> MouvementStock
+ *  - Transaction        -> TransactionPaiement (TRANSACTION est un mot-clé SQL)
+ *  - Référentiels de la section 13 -> enums
+ */
+
+// =====================================================================
+// Référentiels techniques (section 13)
+// =====================================================================
+
+enum PeriodeQuota {
+  JOUR, SEMAINE, MOIS, TRIMESTRE, ANNEE
+}
+
+enum UniteQuota {
+  UNITE, ACCES, COURSE, KG
+}
+
+enum TypeMouvementStock {
+  CREDIT, DEBIT
+}
+
+enum StatutCodeQr {
+  VALIDE, UTILISE, EXPIRE, ANNULE
+}
+
+enum ModePaiement {
+  ORANGE_MONEY
+}
+
+enum StatutTransaction {
+  EN_ATTENTE, SUCCES, FAILED, ANNULE
+}
+
+// =====================================================================
+// 1. Utilisateurs & Habilitations
+//    (Utilisateur = User JHipster, Role = Authority JHipster)
+// =====================================================================
+
+/** Fonction métier attribuée à un utilisateur. */
+entity Profil {
+  id UUID
+  code String required unique
+  libelle String required
+  description String
+}
+
+// =====================================================================
+// 2. Clients & Segmentation
+// =====================================================================
+
+/** Bénéficiaire des services. Le numéro correspond au MSISDN. */
+entity Client {
+  id UUID
+  numero String required unique
+  prenom String
+  nom String
+  email String
+}
+
+/** Type de compte : PREPAYE, POSTPAYE, DDE... */
+entity TypeClient {
+  id UUID
+  code String required unique
+  libelle String required
+}
+
+/** Segment commercial : PLATINUM... */
+entity SegmentClient {
+  id UUID
+  code String required unique
+  libelle String required
+}
+
+// =====================================================================
+// 3. Services & Éligibilité
+// =====================================================================
+
+/** Catégorie d'un service. */
+entity TypeService {
+  id UUID
+  code String required unique
+  libelle String required
+}
+
+/** Service proposé aux clients (Service dans le document). */
+entity ServiceConciergerie {
+  id UUID
+  code String required unique
+  libelle String required
+  description String
+}
+
+/** Règle d'accès à un service selon le segment et le type du client. */
+entity EligibiliteService {
+  id UUID
+  autorise Boolean required
+  gratuit Boolean required
+  dateDebut LocalDate required
+  dateFin LocalDate
+}
+
+// =====================================================================
+// 4. Quotas & Consommation
+// =====================================================================
+
+/** Limite d'utilisation associée à une éligibilité. */
+entity QuotaService {
+  id UUID
+  limite BigDecimal required min(0)
+  unite UniteQuota required
+  periode PeriodeQuota required
+  dateDebut LocalDate required
+  dateFin LocalDate
+}
+
+/** Décomposition d'un quota par zone (Dakar, Banlieue...). */
+entity QuotaDetail {
+  id UUID
+  limite BigDecimal required min(0)
+}
+
+/** Consommation réelle d'un quota par un client. */
+entity ConsommationQuota {
+  id UUID
+  quantite BigDecimal required min(0)
+  dateConsommation Instant required
+}
+
+// =====================================================================
+// 5. Partenaires & Couverture
+// =====================================================================
+
+/** Prestataire chargé de fournir des services. */
+entity Partenaire {
+  id UUID
+  code String required unique
+  libelle String required
+}
+
+/** Zone géographique (couverture et quotas). */
+entity Zone {
+  id UUID
+  code String required unique
+  libelle String required
+}
+
+/** Services qu'un partenaire peut fournir. */
+entity CouverturePartenaire {
+  id UUID
+  dateDebut LocalDate required
+  dateFin LocalDate
+}
+
+/** Zones d'intervention d'un partenaire. */
+entity PartenaireZone {
+  id UUID
+}
+
+// =====================================================================
+// 6. Stock
+// =====================================================================
+
+/** Stock ou capacité globale d'un service (Account dans le document). */
+entity CompteStock {
+  id UUID
+  solde BigDecimal required
+}
+
+/** Mouvement de crédit/débit du stock (TransactionAccount dans le document). */
+entity MouvementStock {
+  id UUID
+  type TypeMouvementStock required
+  quantite BigDecimal required min(0)
+  dateTransaction Instant required
+  motif String
+}
+
+// =====================================================================
+// 7. Demandes & Prestations
+// =====================================================================
+
+/** Demande de service formulée par un client. */
+entity Demande {
+  id UUID
+  dateCreation Instant required
+  description String
+}
+
+/** Catégorie d'une demande. */
+entity TypeDemande {
+  id UUID
+  code String required unique
+  libelle String required
+}
+
+/** État d'une demande. */
+entity StatutDemande {
+  id UUID
+  code String required unique
+  libelle String required
+}
+
+/** Historique des changements de statut. */
+entity HistoriqueStatutDemande {
+  id UUID
+  dateChangement Instant required
+}
+
+/** Affectation / réaffectation à un partenaire. */
+entity AffectationDemande {
+  id UUID
+  dateAffectation Instant required
+}
+
+/** Exécution effective du service. */
+entity Prestation {
+  id UUID
+  dateDebut Instant
+  dateFin Instant
+}
+
+// =====================================================================
+// 8. QR Service
+// =====================================================================
+
+/** QR Code matérialisant le droit d'accès à un service. */
+entity CodeQrService {
+  id UUID
+  code String required unique
+  qrCode TextBlob required
+  dateGeneration Instant required
+  dateExpiration Instant
+  statut StatutCodeQr required
+}
+
+/** Scan / utilisation du QR par un partenaire. */
+entity UtilisationCodeQr {
+  id UUID
+  dateUtilisation Instant required
+}
+
+// =====================================================================
+// 9. Paiement & Facturation
+// =====================================================================
+
+/** Tentative de paiement d'une demande (Transaction dans le document). */
+entity TransactionPaiement {
+  id UUID
+  montant BigDecimal required min(0)
+  modePaiement ModePaiement required
+  statut StatutTransaction required
+  referenceExterne String
+  dateTransaction Instant required
+}
+
+/** Facture générée pour une demande. */
+entity Facture {
+  id UUID
+  numero String required unique
+  montant BigDecimal required min(0)
+  dateGeneration Instant required
+}
+
+/** Code promotionnel. */
+entity CodePromo {
+  id UUID
+  code String required unique
+  valeur BigDecimal required min(0)
+  dateDebut LocalDate required
+  dateFin LocalDate required
+}
+
+// =====================================================================
+// 10. Notifications & Satisfaction
+// =====================================================================
+
+/** Notification adressée au client. */
+entity Notification {
+  id UUID
+  titre String required
+  message TextBlob required
+  dateEnvoi Instant required
+  lu Boolean required
+}
+
+/** Note et commentaire associés à une demande. */
+entity Evaluation {
+  id UUID
+  note Integer required min(1) max(5)
+  commentaire TextBlob
+  dateEvaluation Instant required
+}
+
+// =====================================================================
+// 11. Sécurité & Traçabilité
+// =====================================================================
+
+/** Empêche l'exécution multiple d'une même opération. */
+entity IdempotencyKey {
+  id UUID
+  cle String required unique
+  typeOperation String required
+  resourceId UUID
+  dateCreation Instant required
+  dateExpiration Instant
+}
+
+/** Traçabilité des opérations importantes. */
+entity JournalAudit {
+  id UUID
+  action String required
+  typeObjet String required
+  objetId UUID
+  correlationId String required
+  dateAction Instant required
+}
+
+// =====================================================================
+// RELATIONS
+// =====================================================================
+
+// ---- 1. Utilisateurs & Habilitations ----
+relationship ManyToMany {
+  Profil{utilisateur(login)} to User with builtInEntity
+  Profil{role(name)} to Authority with builtInEntity
+}
+
+// ---- 2. Client <-> compte utilisateur (connexion) ----
+relationship OneToOne {
+  Client{user(login)} to User with builtInEntity
+}
+
+// ---- Toutes les relations "plusieurs vers un" ----
+relationship ManyToOne {
+  // 2. Clients & Segmentation
+  Client{typeClient(libelle) required} to TypeClient
+  Client{segmentClient(libelle) required} to SegmentClient
+
+  // 3. Services & Éligibilité
+  ServiceConciergerie{typeService(libelle) required} to TypeService
+  EligibiliteService{service(libelle) required} to ServiceConciergerie
+  EligibiliteService{segmentClient(libelle) required} to SegmentClient
+  EligibiliteService{typeClient(libelle) required} to TypeClient
+
+  // 4. Quotas & Consommation
+  QuotaService{eligibiliteService required} to EligibiliteService
+  QuotaDetail{quotaService required} to QuotaService
+  QuotaDetail{zone(libelle) required} to Zone
+  ConsommationQuota{client(numero) required} to Client
+  ConsommationQuota{quotaService required} to QuotaService
+  ConsommationQuota{quotaDetail} to QuotaDetail
+
+  // 5. Partenaires & Couverture
+  CouverturePartenaire{partenaire(libelle) required} to Partenaire
+  CouverturePartenaire{service(libelle) required} to ServiceConciergerie
+  PartenaireZone{partenaire(libelle) required} to Partenaire
+  PartenaireZone{zone(libelle) required} to Zone
+
+  // 6. Stock
+  MouvementStock{compteStock required} to CompteStock
+
+  // 7. Demandes & Prestations
+  Demande{client(numero) required} to Client
+  Demande{service(libelle) required} to ServiceConciergerie
+  Demande{typeDemande(libelle) required} to TypeDemande
+  Demande{statut(libelle) required} to StatutDemande
+  Demande{codePromo(code)} to CodePromo
+  HistoriqueStatutDemande{demande required} to Demande
+  HistoriqueStatutDemande{statut(libelle) required} to StatutDemande
+  AffectationDemande{demande required} to Demande
+  AffectationDemande{partenaire(libelle) required} to Partenaire
+  Prestation{partenaire(libelle) required} to Partenaire
+
+  // 8. QR Service
+  UtilisationCodeQr{codeQrService(code) required} to CodeQrService
+  UtilisationCodeQr{partenaire(libelle) required} to Partenaire
+
+  // 9. Paiement & Facturation
+  TransactionPaiement{demande required} to Demande
+
+  // 10. Notifications & Satisfaction
+  Notification{client(numero) required} to Client
+  Notification{demande} to Demande
+}
+
+// ---- Relations "1 -> 0..1" (une demande a au plus une prestation, un QR, une facture, une évaluation) ----
+relationship OneToOne {
+  // 6. Stock : un service a au plus un compte de stock
+  CompteStock{service(libelle) required} to ServiceConciergerie
+  // 7. Demandes & Prestations
+  Prestation{demande required} to Demande
+  // 8. QR Service
+  CodeQrService{demande required} to Demande
+  // 9. Paiement & Facturation
+  Facture{demande required} to Demande
+  // 10. Notifications & Satisfaction
+  Evaluation{demande required} to Demande
+}
+
+// =====================================================================
+// OPTIONS DE GÉNÉRATION
+// =====================================================================
+
+dto * with mapstruct
+service * with serviceImpl
+
+paginate Client, Demande, ConsommationQuota, HistoriqueStatutDemande,
+  MouvementStock, TransactionPaiement, Facture, Notification,
+  Evaluation, UtilisationCodeQr, JournalAudit, IdempotencyKey with pagination
+
+filter Client, Demande, ConsommationQuota, Notification, TransactionPaiement
